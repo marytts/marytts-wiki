@@ -1,6 +1,6 @@
 New in MARY TTS 5 is a unified API for accessing both local and remote synthesis:
 
-    marytts.MaryInterface
+[marytts.MaryInterface](https://github.com/marytts/marytts/blob/master/marytts-common/src/main/java/marytts/MaryInterface.java)
 
 
 This is intended as an easy-to-use access API for using MARY TTS.
@@ -11,7 +11,7 @@ The basic idea is to use reasonable defaults when instantiating a MaryInterface,
 
 ## Examples of use
 
-### Simplest text-to-speech
+### Simple text-to-speech with default settings
 
     MaryInterface marytts = new LocalMaryInterface();
     AudioInputStream audio = marytts.generateAudio("This is my text.");
