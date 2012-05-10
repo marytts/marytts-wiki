@@ -1,6 +1,6 @@
 This page describes how to make available a synthesis voice for use with MARY TTS 5.x.
 
-1. Build a voice using the voice import toolkit. As a result, you should find, in your voice's maven directory, an installable package `voice-...zip` and an XML file `voice-...-component.xml`.
+1. Build a voice using the voice import toolkit. As a result, you should find, in your voice's maven directory (under `target/`), an installable package `voice-...zip` and an XML file `voice-...-component.xml`.
 
 2. Edit the XML such that it describes your voice properly. Pay special attention to the license terms, and make sure that the license html page can be displayed in the marytts-component-installer.
 
