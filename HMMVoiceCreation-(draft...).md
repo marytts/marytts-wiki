@@ -141,7 +141,7 @@ If you are creating a voice in other language you will need to specify:
 
 **Minimal NLP components**: if you are creating a new voice from scratch, for example following the steps in NewLanguageSupport, you will need to create Minimal NLP components for the new language. These minimal components are necessary to run the MARY server in the new language and extract context features (phonefeatures directory). 
 
-**Phoneme set**: contained in $MARY_BASE/lib/modules/xx/lexicon/allophones.xx.xml , where xx corresponds to the new language. 
+**Phoneme set**: contained in $MARY_BASE/marytts-lang-xx/src/main/resources/marytts/language/xx/lexicon/allophones.xx.xml , where xx corresponds to the new language. 
 
 After creating the minimal components, you will need wave files (in a wav directory) and the corresponding transcriptions (one file per wave file in a text directory).
 
