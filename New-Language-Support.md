@@ -3,11 +3,12 @@ This page outlines the steps necessary to add support for a new language to MARY
 
 The following picture outlines the overall process.
 
-[[Image(NewLanguageWorkflow.png)]]
+![New Language Workflow](NewLanguageWorkflow.png)
 
 The following sections describe the various steps involved.
 
 # 1. Download xml dump of wikipedia in your language
+
   Information about where and how to download the wikipedia in several languages is in: http://en.wikipedia.org/wiki/Wikipedia_database
 
   for example:
@@ -15,15 +16,14 @@ The following sections describe the various steps involved.
 1. English xml dump of wikipedia available at : http://download.wikimedia.org/enwiki/latest/ ( example file: enwiki-latest-pages-articles.xml.bz2 4.1 GB )
 2. Telugu xml dump of wikipedia available at : http://download.wikimedia.org/tewiki/latest/
 
-{{{
- wget -b http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
-}}}
+        wget -b http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
+
 
 ## 2. Extract clean text and most frequent words
 
 ### 2.1. Split the xml dump
 
-Once downloaded the best way to handle the xml dump is splitting it into small chunks. You can avoid this step if your wiki dump is not bigger than 500MB, and you do not have memory problems. [[BR]]
+Once downloaded the best way to handle the xml dump is splitting it into small chunks. You can avoid this step if your wiki dump is not bigger than 500MB, and you do not have memory problems.
 
 For example, after unziping the English wikipedia dump will be approx. 16GB, so for further processing it can be split using the '''WikipediaDumpSplitter''' program.
 
@@ -36,20 +36,18 @@ The next step will be to extract clean text (without wikipedia markup) from the 
 
 First of all a mysql database should be created with all privileges. In ubuntu if you have mysql server installed a database can be created with:
 
-{{{
-$mysql -u root -p
-Enter password: (ubuntu passwd in this machine)
+    $mysql -u root -p
+    Enter password: (ubuntu passwd in this machine)
 
-mysql> create database wiki;
-mysql> grant all privileges on wiki.* to mary@localhost identified by "wiki123";
-mysql> flush privileges;
-}}}
+    mysql> create database wiki;
+    mysql> grant all privileges on wiki.* to mary@localhost identified by "wiki123";
+    mysql> flush privileges;
 
-Int this case the ''wiki'' database is created, all privileges are granted to user ''mary'' in the localhost and the password is for example ''wiki123''.  These values will be used in the scripts bellow.
+Int this case the `wiki` database is created, all privileges are granted to user `mary` in the localhost and the password is for example `wiki123`.  These values will be used in the scripts below.
 
 If you do not have rights for creating a mysql database, please contact your system administrator for creating one for you.
 
-  Once you have a mysql database, you can start to extract clean text and words from the wikipedia split files using the '''WikipediaProcessor''' program.  The following script explains its usage and possible parameters (The scripts examples presented in this tutorial use the enwiki, that is locale en_US):[[BR]]
+  Once you have a mysql database, you can start to extract clean text and words from the wikipedia split files using the `WikipediaProcessor` program.  The following script explains its usage and possible parameters (The scripts examples presented in this tutorial use the enwiki, that is locale en_US):
 
 
 The wikilist.txt should contain something like:
@@ -59,37 +57,36 @@ The wikilist.txt should contain something like:
     /current-dir/xml_splits/page3.xml
     ...
 
-'''NOTE:''' If you experience memory problems you can try to split the big xml dump in smaller chunks.
+*NOTE:* If you experience memory problems you can try to split the big xml dump in smaller chunks.
 
-'''Output:'''
+*Output:*
 
-- It creates a file "./done.txt" which contains the files already processed, in case the program stops it can be re-started and it will continue processing the not "done" files in the input list.
+- It creates a file `./done.txt` which contains the files already processed, in case the program stops it can be re-started and it will continue processing the not "done" files in the input list.
 
-- A text file "./wordlist-freq.txt" containing the list of words and their frequencies, this file will be created after processing each xml file.
+- A text file `./wordlist-freq.txt` containing the list of words and their frequencies, this file will be created after processing each xml file.
 
-- It creates two tables in the the database, the name of the tables depends on the locale, for example if the locale is "en_US" it will create the tables en_US_cleanText and en_US_wordList, their description is:
+- It creates two tables in the the database, the name of the tables depends on the locale, for example if the locale is "en_US" it will create the tables `en_US_cleanText` and `en_US_wordList`, their description is:
 
-{{{
-mysql> desc en_US_cleanText;
-+-----------+------------------+------+-----+---------+----------------+
-| Field     | Type             | Null | Key | Default | Extra          |
-+-----------+------------------+------+-----+---------+----------------+
-| id        | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
-| cleanText | mediumblob       | NO   |     |         |                |
-| processed | tinyint(1)       | YES  |     | NULL    |                |
-| page_id   | int(10) unsigned | NO   |     |         |                |
-| text_id   | int(10) unsigned | NO   |     |         |                |
-+-----------+------------------+------+-----+---------+----------------+
+        mysql> desc en_US_cleanText;
+        +-----------+------------------+------+-----+---------+----------------+
+        | Field     | Type             | Null | Key | Default | Extra          |
+        +-----------+------------------+------+-----+---------+----------------+
+        | id        | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+        | cleanText | mediumblob       | NO   |     |         |                |
+        | processed | tinyint(1)       | YES  |     | NULL    |                |
+        | page_id   | int(10) unsigned | NO   |     |         |                |
+        | text_id   | int(10) unsigned | NO   |     |         |                |
+        +-----------+------------------+------+-----+---------+----------------+
 
-mysql> desc en_US_wordList;
-+-----------+------------------+------+-----+---------+----------------+
-| Field     | Type             | Null | Key | Default | Extra          |
-+-----------+------------------+------+-----+---------+----------------+
-| id        | int(11)          | NO   | PRI | NULL    | auto_increment |
-| word      | tinyblob         | NO   |     |         |                |
-| frequency | int(10) unsigned | NO   |     |         |                |
-+-----------+------------------+------+-----+---------+----------------+
-}}}
+        mysql> desc en_US_wordList;
+        +-----------+------------------+------+-----+---------+----------------+
+        | Field     | Type             | Null | Key | Default | Extra          |
+        +-----------+------------------+------+-----+---------+----------------+
+        | id        | int(11)          | NO   | PRI | NULL    | auto_increment |
+        | word      | tinyblob         | NO   |     |         |                |
+        | frequency | int(10) unsigned | NO   |     |         |                |
+        +-----------+------------------+------+-----+---------+----------------+
+
 
 ## 3. Transcribe most frequent words
 
