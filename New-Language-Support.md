@@ -27,7 +27,7 @@ Create an empty directory as your wiki data directory.
 
 In your wiki data directory run the `wkdb_setup.sh` with the appropriate parameters,
 
-    wkdb_setup.sh [wkdb data path] [wkdb locale] [mary locale]
+    $ wkdb_setup.sh [wkdb data path] [wkdb locale] [mary locale]
 
 where
 
@@ -37,8 +37,10 @@ where
 
 e.g.:
 
-    wkdb_setup.sh ./ en en_US
-    (i.e., marytts/target/marytts-builder-<VERSION>/bin/wkdb_setup.sh ./ en en_US)
+    $ wkdb_setup.sh ./ en en_US
+    (i.e., 
+    $ marytts/target/marytts-builder-<VERSION>/bin/wkdb_setup.sh ./ en en_US
+    )
 
 
 This creates a config file `wkdb.conf` (Please look at the configuration file `wkdb.conf` and change it according to your needs)
@@ -55,7 +57,7 @@ This creates a config file `wkdb.conf` (Please look at the configuration file `w
 
 The following script should automate the download and unpacking of the wikipedia dump for your language.
 
-    wkdb_download_wikidump.sh wkdb.conf 
+    $ wkdb_download_wikidump.sh wkdb.conf 
 
 
 ## 2. Extract clean text and most frequent words
@@ -66,7 +68,7 @@ Once downloaded the best way to handle the xml dump is splitting it into small c
 
 For example, after unziping the English wikipedia dump will be approx. 16GB, so for further processing it can be split using the Wikipedia Dump Splitter program, wrapped by the following script:
  
-    wkdb_split_dump.sh wkdb.conf 
+    $ wkdb_split_dump.sh wkdb.conf 
 
 
 ### 2.2. Wikipedia Markup cleaning and mysql database creation
@@ -75,21 +77,15 @@ The next step will be to extract clean text (without wikipedia markup) from the 
 
 First of all a mysql database should be created with all privileges. In ubuntu if you have mysql server installed a database can be created with:
 
-    $mysql -u root -p
-    Enter password: (ubuntu passwd in this machine)
-
-    mysql> create database wiki;
-    mysql> grant all privileges on wiki.* to mary@localhost identified by "wiki123";
-    mysql> flush privileges;
-
-Int this case the `wiki` database is created, all privileges are granted to user `mary` in the localhost and the password is for example `wiki123`.  These values will be used in the scripts below.
+    $ wkdb_create_database.sh wkdb.conf
 
 If you do not have rights for creating a mysql database, please contact your system administrator for creating one for you.
 
-  Once you have a mysql database, you can start to extract clean text and words from the wikipedia split files using the `WikipediaProcessor` program.  The following script explains its usage and possible parameters (The scripts examples presented in this tutorial use the enwiki, that is locale en_US):
+Once you have a mysql database, you can start to extract clean text and words from the wikipedia split files using the `WikipediaProcessor` program:
 
+    $ wkdb_cleaning_up.sh wkdb.conf
 
-The wikilist.txt should contain something like:
+This should create a file `wikilist.txt` which should contain something like:
 
     /current-dir/xml_splits/page1.xml
     /current-dir/xml_splits/page2.xml
