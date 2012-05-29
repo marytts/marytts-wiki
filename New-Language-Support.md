@@ -144,35 +144,43 @@ The easiest way to do this is probably to copy one of the existing language proj
     $ cd marytts-lang-xy
     $ rm target .project .classpath # these are generated files
 
-Now the key files to edit will be:
+Now the key files to edit will be the following.
 
-    # the maven project file
-    marytts-lang-xy/pom.xml
+* the maven project file
 
-    # From transcription tool, copy source files for future reference:
-    marytts-lang-xy/lib/modules/xy/lexicon/allophones.xy.xml
-    marytts-lang-xy/lib/modules/xy/lexicon/xy.txt
+        marytts-lang-xy/pom.xml
 
-    # Copy runtime files from the transcription tool:
-    marytts-lang-xy/src/main/resources/marytts/language/xy/lexicon/allophones.xy.xml
-    marytts-lang-xy/src/main/resources/marytts/language/xy/lexicon/xy.lts
-    marytts-lang-xy/src/main/resources/marytts/language/xy/lexicon/xy_lexicon.fst
-    marytts-lang-xy/src/main/resources/marytts/language/xy/tagger/xy_pos.fst
+* From transcription tool, copy source files for future reference:
 
-    # Create a default text for your language:
-    marytts-lang-xy/src/main/resources/marytts/language/xy/datatypes/TEXT.xy.example
+        marytts-lang-xy/lib/modules/xy/lexicon/allophones.xy.xml
+        marytts-lang-xy/lib/modules/xy/lexicon/xy.txt
 
-    # The config file is the heart of your new language support. Copy from other language, edit carefully:
-    marytts-lang-xy/src/main/resources/marytts/language/xy/xy.config
+* Copy runtime files from the transcription tool:
 
-    # As a minimal java file, all you need is a config loader -- copy from other language and edit:
-    marytts-lang-xy/src/main/java/marytts/language/xy/XYConfig.java
+        marytts-lang-xy/src/main/resources/marytts/language/xy/lexicon/allophones.xy.xml
+        marytts-lang-xy/src/main/resources/marytts/language/xy/lexicon/xy.lts
+        marytts-lang-xy/src/main/resources/marytts/language/xy/lexicon/xy_lexicon.fst
+        marytts-lang-xy/src/main/resources/marytts/language/xy/tagger/xy_pos.fst
 
-    # Some minimal unit tests to verify that the config sets locales correctly -- copy and edit:
-    marytts-lang-xy/src/test/java/marytts/language/xy/XYConfigTest.java
+* Create a default text for your language:
 
-    # Refer to the new config loader so that MARY TTS can find it:
-    marytts-lang-xy/src/main/resources/META-INF/services/marytts.config.MaryConfig
+        marytts-lang-xy/src/main/resources/marytts/language/xy/datatypes/TEXT.xy.example
+
+* The config file is the heart of your new language support. Copy from other language, edit carefully:
+
+        marytts-lang-xy/src/main/resources/marytts/language/xy/xy.config
+
+* As a minimal java file, all you need is a config loader -- copy from other language and edit:
+
+        marytts-lang-xy/src/main/java/marytts/language/xy/XYConfig.java
+
+* Some minimal unit tests to verify that the config sets locales correctly -- copy and edit:
+
+        marytts-lang-xy/src/test/java/marytts/language/xy/XYConfigTest.java
+
+* Refer to the new config loader so that MARY TTS can find it:
+
+        marytts-lang-xy/src/main/resources/META-INF/services/marytts.config.MaryConfig
 
 Once these are all in place and look right, try to build the new language file:
 
