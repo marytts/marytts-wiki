@@ -1,33 +1,74 @@
 # Adding support for a new language to MARY TTS
-This page outlines the steps necessary to add support for a new language to MARY TTS.
+This page outlines the steps necessary to add support for a new language to MARY TTS 5.
 
 The following picture outlines the overall process.
 
-[[Image(NewLanguageWorkflow.png)]]
+![New Language Workflow](NewLanguageWorkflow.png)
 
 The following sections describe the various steps involved.
 
+# 0. Set up your environment
+
+## 0.1 Compile marytts builder tools
+
+First make sure you have built the MARY TTS software from source, using `mvn install` as described in the README. All software required for building the voice should now be located below
+
+    marytts/target/marytts-builder-<version>/
+
+with all shell scripts used in this page located in 
+
+    marytts/target/marytts-builder-<version>/bin/
+
+So please either place that folder into your `$PATH` or prefix each call to a shell script with `marytts/target/marytts-builder-<version>/bin/`.
+
+## 0.2 Create a wiki data directory
+
+Create an empty directory as your wiki data directory.
+
+In your wiki data directory run the `wkdb_setup.sh` with the appropriate parameters,
+
+    $ wkdb_setup.sh [wkdb data path] [wkdb locale] [mary locale]
+
+where
+
+    wkdb data path: path for the wkdb data path a configuration file will be create
+    wkdb locale: the two letter locale for your language (e.g.: en, de, te, it, ...)
+    mary locale: the extended mary locale for your language (e.g.: en_US, en_GB, de, te, it, ...)
+
+e.g.:
+
+    $ wkdb_setup.sh ./ en en_US
+    (i.e., 
+    $ marytts/target/marytts-builder-<VERSION>/bin/wkdb_setup.sh ./ en en_US
+    )
+
+
+This creates a config file `wkdb.conf` (Please look at the configuration file `wkdb.conf` and change it according to your needs)
+
+
 # 1. Download xml dump of wikipedia in your language
+
   Information about where and how to download the wikipedia in several languages is in: http://en.wikipedia.org/wiki/Wikipedia_database
 
   for example:
 
-1. English xml dump of wikipedia available at : http://download.wikimedia.org/enwiki/latest/ ( example file: enwiki-latest-pages-articles.xml.bz2 4.1 GB )
-2. Telugu xml dump of wikipedia available at : http://download.wikimedia.org/tewiki/latest/
+* English xml dump of wikipedia available at : http://download.wikimedia.org/enwiki/latest/ ( example file: enwiki-latest-pages-articles.xml.bz2 4.1 GB )
+* Telugu xml dump of wikipedia available at : http://download.wikimedia.org/tewiki/latest/
 
-{{{
- wget -b http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
-}}}
+The following script should automate the download and unpacking of the wikipedia dump for your language.
+
+    $ wkdb_download_wikidump.sh wkdb.conf 
+
 
 ## 2. Extract clean text and most frequent words
 
 ### 2.1. Split the xml dump
 
-Once downloaded the best way to handle the xml dump is splitting it into small chunks. You can avoid this step if your wiki dump is not bigger than 500MB, and you do not have memory problems. [[BR]]
+Once downloaded the best way to handle the xml dump is splitting it into small chunks. You can avoid this step if your wiki dump is not bigger than 500MB, and you do not have memory problems.
 
-For example, after unziping the English wikipedia dump will be approx. 16GB, so for further processing it can be split using the '''WikipediaDumpSplitter''' program.
-
-The following script explains its usage and possible parameters for enwiki:
+For example, after unziping the English wikipedia dump will be approx. 16GB, so for further processing it can be split using the Wikipedia Dump Splitter program, wrapped by the following script:
+ 
+    $ wkdb_split_dump.sh wkdb.conf 
 
 
 ### 2.2. Wikipedia Markup cleaning and mysql database creation
@@ -36,60 +77,51 @@ The next step will be to extract clean text (without wikipedia markup) from the 
 
 First of all a mysql database should be created with all privileges. In ubuntu if you have mysql server installed a database can be created with:
 
-{{{
-$mysql -u root -p
-Enter password: (ubuntu passwd in this machine)
-
-mysql> create database wiki;
-mysql> grant all privileges on wiki.* to mary@localhost identified by "wiki123";
-mysql> flush privileges;
-}}}
-
-Int this case the ''wiki'' database is created, all privileges are granted to user ''mary'' in the localhost and the password is for example ''wiki123''.  These values will be used in the scripts bellow.
+    $ wkdb_create_database.sh wkdb.conf
 
 If you do not have rights for creating a mysql database, please contact your system administrator for creating one for you.
 
-  Once you have a mysql database, you can start to extract clean text and words from the wikipedia split files using the '''WikipediaProcessor''' program.  The following script explains its usage and possible parameters (The scripts examples presented in this tutorial use the enwiki, that is locale en_US):[[BR]]
+Once you have a mysql database, you can start to extract clean text and words from the wikipedia split files using the `WikipediaProcessor` program:
 
+    $ wkdb_cleaning_up.sh wkdb.conf
 
-The wikilist.txt should contain something like:
+This should create a file `wikilist.txt` which should contain something like:
 
     /current-dir/xml_splits/page1.xml
     /current-dir/xml_splits/page2.xml
     /current-dir/xml_splits/page3.xml
     ...
 
-'''NOTE:''' If you experience memory problems you can try to split the big xml dump in smaller chunks.
+*NOTE:* If you experience memory problems you can try to split the big xml dump in smaller chunks.
 
-'''Output:'''
+*Output:*
 
-- It creates a file "./done.txt" which contains the files already processed, in case the program stops it can be re-started and it will continue processing the not "done" files in the input list.
+- It creates a file `./done.txt` which contains the files already processed, in case the program stops it can be re-started and it will continue processing the not "done" files in the input list.
 
-- A text file "./wordlist-freq.txt" containing the list of words and their frequencies, this file will be created after processing each xml file.
+- A text file `./wordlist-freq.txt` containing the list of words and their frequencies, this file will be created after processing each xml file.
 
-- It creates two tables in the the database, the name of the tables depends on the locale, for example if the locale is "en_US" it will create the tables en_US_cleanText and en_US_wordList, their description is:
+- It creates two tables in the the database, the name of the tables depends on the locale, for example if the locale is "en_US" it will create the tables `en_US_cleanText` and `en_US_wordList`, their description is:
 
-{{{
-mysql> desc en_US_cleanText;
-+-----------+------------------+------+-----+---------+----------------+
-| Field     | Type             | Null | Key | Default | Extra          |
-+-----------+------------------+------+-----+---------+----------------+
-| id        | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
-| cleanText | mediumblob       | NO   |     |         |                |
-| processed | tinyint(1)       | YES  |     | NULL    |                |
-| page_id   | int(10) unsigned | NO   |     |         |                |
-| text_id   | int(10) unsigned | NO   |     |         |                |
-+-----------+------------------+------+-----+---------+----------------+
+        mysql> desc en_US_cleanText;
+        +-----------+------------------+------+-----+---------+----------------+
+        | Field     | Type             | Null | Key | Default | Extra          |
+        +-----------+------------------+------+-----+---------+----------------+
+        | id        | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+        | cleanText | mediumblob       | NO   |     |         |                |
+        | processed | tinyint(1)       | YES  |     | NULL    |                |
+        | page_id   | int(10) unsigned | NO   |     |         |                |
+        | text_id   | int(10) unsigned | NO   |     |         |                |
+        +-----------+------------------+------+-----+---------+----------------+
 
-mysql> desc en_US_wordList;
-+-----------+------------------+------+-----+---------+----------------+
-| Field     | Type             | Null | Key | Default | Extra          |
-+-----------+------------------+------+-----+---------+----------------+
-| id        | int(11)          | NO   | PRI | NULL    | auto_increment |
-| word      | tinyblob         | NO   |     |         |                |
-| frequency | int(10) unsigned | NO   |     |         |                |
-+-----------+------------------+------+-----+---------+----------------+
-}}}
+        mysql> desc en_US_wordList;
+        +-----------+------------------+------+-----+---------+----------------+
+        | Field     | Type             | Null | Key | Default | Extra          |
+        +-----------+------------------+------+-----+---------+----------------+
+        | id        | int(11)          | NO   | PRI | NULL    | auto_increment |
+        | word      | tinyblob         | NO   |     |         |                |
+        | frequency | int(10) unsigned | NO   |     |         |                |
+        +-----------+------------------+------+-----+---------+----------------+
+
 
 ## 3. Transcribe most frequent words
 
@@ -97,98 +129,119 @@ mysql> desc en_US_wordList;
 
   Create pronunciation dictionary,  train letter-to-sound rules and prepare list of functional words for primitive POS tagger using MARY Transcription Tool.
 
+    $ transcription.sh 
+
   More details available at  http://mary.opendfki.de/wiki/TranscriptionTool
 
 ## 4. Minimal NLP components for the new language
 
 With the files generated by the Transcription tool, we can now create a first instance of the NLP components in the TTS system for our language.
 
-We add support for our language to MARY TTS by creating a new config file in the folder MARY TTS\conf. By convention the file is called <locale>.config. It tells the MARY server which TTS modules to load, and which data files to use.
+The easiest way to do this is probably to copy one of the existing language projects with minimal NLP components (e.g., `marytts-lang-tr`, `marytts-lang-te` or `marytts-lang-ru`). Assuming we want to build NLP support for locale `xy`, we would copy the entire subfolder:
 
-The following is an example for Turkish (locale "tr").
+    $ cd marytts
+    $ cp -r marytts-lang-tr marytts-lang-xy
+    $ cd marytts-lang-xy
+    $ rm target .project .classpath # these are generated files
 
-{{{
-##########################################################################
-# MARY TTS configuration file tr.config
-##########################################################################
+Now the key files to edit will be the following.
 
-name = tr
-tr.version = 4.0.0
+* the maven project file
 
-provides = a-language
+        marytts-lang-xy/pom.xml
 
-requires = \
-    marybase
+* From transcription tool, copy source files for future reference:
+
+        marytts-lang-xy/lib/modules/xy/lexicon/allophones.xy.xml
+        marytts-lang-xy/lib/modules/xy/lexicon/xy.txt
+
+* Copy runtime files from the transcription tool:
+
+        marytts-lang-xy/src/main/resources/marytts/language/xy/lexicon/allophones.xy.xml
+        marytts-lang-xy/src/main/resources/marytts/language/xy/lexicon/xy.lts
+        marytts-lang-xy/src/main/resources/marytts/language/xy/lexicon/xy_lexicon.fst
+        marytts-lang-xy/src/main/resources/marytts/language/xy/tagger/xy_pos.fst
+
+* Create a default text for your language:
+
+        marytts-lang-xy/src/main/resources/marytts/language/xy/datatypes/TEXT.xy.example
+
+* The config file is the heart of your new language support. Copy from other language, edit carefully:
+
+        marytts-lang-xy/src/main/resources/marytts/language/xy/xy.config
+
+* As a minimal java file, all you need is a config loader -- copy from other language and edit:
+
+        marytts-lang-xy/src/main/java/marytts/language/xy/XYConfig.java
+
+* Some minimal unit tests to verify that the config sets locales correctly -- copy and edit:
+
+        marytts-lang-xy/src/test/java/marytts/language/xy/XYConfigTest.java
+
+* Refer to the new config loader so that MARY TTS can find it:
+
+        marytts-lang-xy/src/main/resources/META-INF/services/marytts.config.MaryConfig
+
+Once these are all in place and look right, try to build the new language file:
+
+    $ cd marytts-lang-xy
+    $ mvn test
+
+When that works, add the language project as a new subproject into the master pom:
+
+    marytts/pom.xml
+
+include it as a dependency in the assembly-plugin:
+
+    marytts/marytts-assembly/assembly-runtime/pom.xml
+
+and build the full project:
+
+    $ cd marytts
+    $ mvn install
+
+If that goes well, it should be possible to start the marytts server:
+
+    $ marytts/target/marytts-<version>/bin/marytts-server.sh
+
+To test the system manually, place a query via the HTTP interface, for input format TEXT, locale xy, and output formats up to TARGETFEATURES. A suitable test request can be placed from http://localhost:59125/documentation.html. It is a good idea to check whether the output for TOKENS, PARTSOFSPEECH, PHONEMES, INTONATION and ALLOPHONES looks roughly as expected.
+
+In order to continue with the next step, you will need to have a marytts system with this locale operational, so that the FeatureMaker can compute feature vectors for computing diphone coverage.
 
 
-###########################################################################
-############################## The Modules  ###############################
-###########################################################################
-modules.classes.list = \
-        marytts.modules.JPhonemiser(tr.)  \
-        marytts.modules.MinimalisticPosTagger(tr,tr.) \
+## 5. Run feature maker with the minimal NLP components
 
+The *FeatureMaker* program splits the clean text obtained in step 2 into sentences, classifying them as reliable or non-reliable (sentences with unknown words or strange symbols) and extracts context features from the reliable sentences. All this extracted data will be  kept in the DB.
 
-####################################################################
-####################### Module settings  ###########################
-####################################################################
+To run the feature maker, you *must* have the new language components available in `marytts/target/marytts-<version>/` as described in the previous step. DO NOT TRY TO PROCEED before having achieved step 4.
 
-# Phonemiser settings
-tr.allophoneset = MARY_BASE/lib/modules/tr/lexicon/allophones.tr.xml
-tr.lexicon = MARY_BASE/lib/modules/tr/lexicon/tr_lexicon.fst
-tr.lettertosound = MARY_BASE/lib/modules/tr/lexicon/tr.lts
-#tr.userdict = MARY_BASE/lib/modules/tr/lexicon/userdict.txt
+    $ wkdb_featuremaker.sh wkdb.conf 
 
-# POS tagger settings
-tr.partsofspeech.fst = MARY_BASE/lib/modules/tr/tagger/tr_pos.fst
-tr.partsofspeech.punctuation = ,.?!;
-
-}}}
-It can be seen that the tr.config file refers to the following files:
-
-{{{
-MARY_BASE/lib/modules/tr/lexicon/allophones.tr.xml
-MARY_BASE/lib/modules/tr/lexicon/tr_lexicon.fst
-MARY_BASE/lib/modules/tr/lexicon/tr.lts
-MARY_BASE/lib/modules/tr/tagger/tr_pos.fst
-}}}
-They must be copied from the TranscriptionGUI folder to the expected place on the file system.
-
-Now, it should be possible to start the mary server, and place a query via the HTTP interface, for input format TEXT, locale tr, and output formats up to TARGETFEATURES. A suitable test request can be placed from http://localhost:59125/documentation.html. It is a good idea to check whether the output for TOKENS, PARTSOFSPEECH, PHONEMES, INTONATION and ALLOPHONES looks roughly as expected.
-
-In order to continue with the next step, you will need to have a mary server with this config file running, so that the FeatureMaker can compute feature vectors for computing diphone coverage.
-
-## 5. Run feature maker with the minimal nlp components
-
-The '''FeatureMaker''' program splits the clean text obtained in step 2 into sentences, classify them as reliable, or non-reliable (sentences with unknownWords or strangeSymbols) and extracts context features from the reliable sentences. All this extracted data will be  kept in the DB.
-
-
-There is a variant of the program, '''FeatureMakerMaryServer''', which calls an external Mary server instead of starting the Mary components internally. It takes the additional command line arguments ''-maryHost localhost -maryPort 59125''.
+(There is a variant of the program, *FeatureMakerMaryServer*, which calls an external Mary server instead of starting the Mary components internally. It takes the additional command line arguments `-maryHost localhost -maryPort 59125`. Adapt the above script if you need to use this for some reason.)
 
 Output:
 
 - After processing every cleanText record it will mark the record as processed=true, so if the program stops it can be re-started and it will continue processing the non-processed cleanText records.
 
-- A file containing the feature definition of the features used for selection, the name of this file depends on the locale, for example for "en_US" it will be "/current-dir/en_US_featureDefinition.txt". This file will be used in the Database selection step.
+- A file containing the feature definition of the features used for selection, the name of this file depends on the locale, for example for "en_US" it will be `/current-dir/en_US_featureDefinition.txt`. This file will be used in the Database selection step.
 
-- It creates one table in the the database, the name of the table depends on the locale, for example if the locale is "en_US" it will create the table en_US_dbselection, its descriptions is:
+- It creates one table in the the database, the name of the table depends on the locale, for example if the locale is "en_US" it will create the table `en_US_dbselection`, its descriptions is:
 
-{{{
-mysql> desc en_US_dbselection;
-+----------------+------------------+------+-----+---------+----------------+
-| Field          | Type             | Null | Key | Default | Extra          |
-+----------------+------------------+------+-----+---------+----------------+
-| id             | int(11)          | NO   | PRI | NULL    | auto_increment | 
-| sentence       | mediumblob       | NO   |     |         |                | 
-| features       | blob             | YES  |     | NULL    |                | 
-| reliable       | tinyint(1)       | YES  |     | NULL    |                | 
-| unknownWords   | tinyint(1)       | YES  |     | NULL    |                | 
-| strangeSymbols | tinyint(1)       | YES  |     | NULL    |                | 
-| selected       | tinyint(1)       | YES  |     | NULL    |                | 
-| unwanted       | tinyint(1)       | YES  |     | NULL    |                | 
-| cleanText_id   | int(10) unsigned | NO   |     |         |                | 
-+----------------+------------------+------+-----+---------+----------------+
-}}}
+        mysql> desc en_US_dbselection;
+        +----------------+------------------+------+-----+---------+----------------+
+        | Field          | Type             | Null | Key | Default | Extra          |
+        +----------------+------------------+------+-----+---------+----------------+
+        | id             | int(11)          | NO   | PRI | NULL    | auto_increment | 
+        | sentence       | mediumblob       | NO   |     |         |                | 
+        | features       | blob             | YES  |     | NULL    |                | 
+        | reliable       | tinyint(1)       | YES  |     | NULL    |                | 
+        | unknownWords   | tinyint(1)       | YES  |     | NULL    |                | 
+        | strangeSymbols | tinyint(1)       | YES  |     | NULL    |                | 
+        | selected       | tinyint(1)       | YES  |     | NULL    |                | 
+        | unwanted       | tinyint(1)       | YES  |     | NULL    |                | 
+        | cleanText_id   | int(10) unsigned | NO   |     |         |                | 
+        +----------------+------------------+------+-----+---------+----------------+
+
 
 ## 6. Database selection
 
