@@ -37,7 +37,8 @@ where
 
 e.g.:
 
-    marytts/target/marytts-builder-<VERSION>/bin/wkdb_setup.sh ./ en en_US
+    wkdb_setup.sh ./ en en_US
+    (i.e., marytts/target/marytts-builder-<VERSION>/bin/wkdb_setup.sh ./ en en_US)
 
 
 This creates a config file `wkdb.conf` (Please look at the configuration file `wkdb.conf` and change it according to your needs)
@@ -52,7 +53,9 @@ This creates a config file `wkdb.conf` (Please look at the configuration file `w
 * English xml dump of wikipedia available at : http://download.wikimedia.org/enwiki/latest/ ( example file: enwiki-latest-pages-articles.xml.bz2 4.1 GB )
 * Telugu xml dump of wikipedia available at : http://download.wikimedia.org/tewiki/latest/
 
-        wget -b http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
+The following script should automate the download and unpacking of the wikipedia dump for your language.
+
+    wkdb_download_wikidump.sh wkdb.conf 
 
 
 ## 2. Extract clean text and most frequent words
@@ -61,9 +64,9 @@ This creates a config file `wkdb.conf` (Please look at the configuration file `w
 
 Once downloaded the best way to handle the xml dump is splitting it into small chunks. You can avoid this step if your wiki dump is not bigger than 500MB, and you do not have memory problems.
 
-For example, after unziping the English wikipedia dump will be approx. 16GB, so for further processing it can be split using the '''WikipediaDumpSplitter''' program.
-
-The following script explains its usage and possible parameters for enwiki:
+For example, after unziping the English wikipedia dump will be approx. 16GB, so for further processing it can be split using the Wikipedia Dump Splitter program, wrapped by the following script:
+ 
+    wkdb_split_dump.sh wkdb.conf 
 
 
 ### 2.2. Wikipedia Markup cleaning and mysql database creation
