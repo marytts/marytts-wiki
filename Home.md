@@ -12,3 +12,4 @@ Transition from [the old TRAC page](http://mary.opendfki.de) to this place is in
 ## New languages and voices for MARY TTS
 
 * [[New Language Support]]
+* [[Publishing a MARY TTS Voice]]
