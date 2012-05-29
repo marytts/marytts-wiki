@@ -245,109 +245,97 @@ Output:
 
 ## 6. Database selection
 
-The '''DatabaseSelector''' program selects a phonetically/prosodically balanced recording script.
+The *DatabaseSelector* program selects a phonetically/prosodically balanced recording script. It can be run through the following shell script:
 
-The following script explains its usage and possible parameters:
+    $ wkdb_database_selector.sh wkdb.conf 
 
 
-'''Output:'''
 
-- Several log information in "/current-dir/selection/" directory
+*Output:*
 
-- A file containing the selected sentences in "/current-dir/selected.log"
+- Several log information in `/current-dir/selection/` directory
 
-- The id's of the selected sentences are marked as selected=true in dbselection
+- A file containing the selected sentences in `/current-dir/selected.log`
 
-- It creates a locale_***_selectedSentences table in the the database. The name of the table depends on the locale, and the name provided by the user with the option -tableName,  for example if the user provided -tableName "Test" and the locale is "en_US" it will create the table:
+- The id's of the selected sentences are marked as `selected=true` in `dbselection`
 
-{{{
-mysql> desc en_US_Test_selectedSentences;
-+----------------+------------------+------+-----+---------+----------------+
-| Field          | Type             | Null | Key | Default | Extra          |
-+----------------+------------------+------+-----+---------+----------------+
-| id             | int(11)          | NO   | PRI | NULL    | auto_increment | 
-| sentence       | mediumblob       | NO   |     |         |                | 
-| unwanted       | tinyint(1)       | YES  |     | NULL    |                | 
-| dbselection_id | int(10) unsigned | NO   |     |         |                | 
-+----------------+------------------+------+-----+---------+----------------+
-}}}
+- It creates a `locale_***_selectedSentences` table in the the database. The name of the table depends on the locale, and the name provided by the user with the option `-tableName`,  for example if the user provided `-tableName "Test"` and the locale is "en_US" it will create the table:
 
-Also a description of this table will be set in the tablesDescription table.
+        mysql> desc en_US_Test_selectedSentences;
+        +----------------+------------------+------+-----+---------+----------------+
+        | Field          | Type             | Null | Key | Default | Extra          |
+        +----------------+------------------+------+-----+---------+----------------+
+        | id             | int(11)          | NO   | PRI | NULL    | auto_increment | 
+        | sentence       | mediumblob       | NO   |     |         |                | 
+        | unwanted       | tinyint(1)       | YES  |     | NULL    |                | 
+        | dbselection_id | int(10) unsigned | NO   |     |         |                | 
+        +----------------+------------------+------+-----+---------+----------------+
 
-The tablesDescription has information about:
+Also a description of this table will be set in the `tablesDescription` table.
 
-{{{
-mysql> desc tablesDescription;
-+----------------------------+------------+------+-----+---------+----------------+
-| Field                      | Type       | Null | Key | Default | Extra          |
-+----------------------------+------------+------+-----+---------+----------------+
-| id                         | int(11)    | NO   | PRI | NULL    | auto_increment | 
-| name                       | tinytext   | YES  |     | NULL    |                | 
-| description                | mediumtext | YES  |     | NULL    |                | 
-| stopCriterion              | tinytext   | YES  |     | NULL    |                | 
-| featuresDefinitionFileName | tinytext   | YES  |     | NULL    |                | 
-| featuresDefinitionFile     | mediumtext | YES  |     | NULL    |                | 
-| covDefConfigFileName       | tinytext   | YES  |     | NULL    |                | 
-| covDefConfigFile           | mediumtext | YES  |     | NULL    |                | 
-+----------------------------+------------+------+-----+---------+----------------+
-}}}
+The `tablesDescription` has information about:
+
+    mysql> desc tablesDescription;
+    +----------------------------+------------+------+-----+---------+----------------+
+    | Field                      | Type       | Null | Key | Default | Extra          |
+    +----------------------------+------------+------+-----+---------+----------------+
+    | id                         | int(11)    | NO   | PRI | NULL    | auto_increment | 
+    | name                       | tinytext   | YES  |     | NULL    |                | 
+    | description                | mediumtext | YES  |     | NULL    |                | 
+    | stopCriterion              | tinytext   | YES  |     | NULL    |                | 
+    | featuresDefinitionFileName | tinytext   | YES  |     | NULL    |                | 
+    | featuresDefinitionFile     | mediumtext | YES  |     | NULL    |                | 
+    | covDefConfigFileName       | tinytext   | YES  |     | NULL    |                | 
+    | covDefConfigFile           | mediumtext | YES  |     | NULL    |                | 
+    +----------------------------+------------+------+-----+---------+----------------+
+
 
 ## 7. Manually check/correct transcription of all words in the recording script [Optional]
 
-The '''SynthesisScriptGUI''' program allows you to check the sentences selected in the previous step, discard some (or all) and select and add more sentences.
+The *SynthesisScriptGUI* program allows you to check the sentences selected in the previous step, discard some (or all) and select and add more sentences.
 
 The following script can be used to start the GUI:
 
-{{{
-#!/bin/bash
+    $ wkdb_synthesis_script_GUI.sh wkdb.conf 
 
-export MARY_BASE="[PATH TO MARY BASE]"
-export CLASSPATH="$MARY_BASE/java/"
-
-java -classpath $CLASSPATH marytts.tools.dbselection.SynthesisScriptGUI
-
-}}}
-
-[[Image(synthesisScriptGUI.png)]]
+![Synthesis script GUI screenshot](synthesisScriptGUI.png)
 
 
 Synthesis script menu options:
 
-1. '''Run DatabaseSelector''': Creates a new selection table or adds sentences to an already existing one.
+* `Run DatabaseSelector`: Creates a new selection table or adds sentences to an already existing one.
 
- * After running the DatabaseSelector the selected sentences are loaded.
+  * After running the DatabaseSelector the selected sentences are loaded.
 
-2. '''Load selected sentences table''': reads mysql parameters and load a selected sentences table.
+* `Load selected sentences table`: reads mysql parameters and load a selected sentences table.
 
- * Once the sentences are loaded, use the checkboxes to mark sentences as unwanted/wanted.
- * Sentences marked as unwanted can be unselected and set as wanted again.
- * The DB is updated every time a checkbox is selected.
- * There is no need to save changes. Changes can be made before the window is updated or the program exits.
+  * Once the sentences are loaded, use the checkboxes to mark sentences as unwanted/wanted.
+  * Sentences marked as unwanted can be unselected and set as wanted again.
+  * The DB is updated every time a checkbox is selected.
+  * There is no need to save changes. Changes can be made before the window is updated or the program exits.
 
-3. '''Save synthesis script as''': saves the selected sentences, without unwanted, in a file.
+* `Save synthesis script as`: saves the selected sentences, without unwanted, in a file.
 
-4. '''Print table properties''': prints the properties used to generate the list of sentences.
+* `Print table properties`: prints the properties used to generate the list of sentences.
 
-5. '''Update window''': presents the table without the sentences marked as unwanted.
+* `Update window`: presents the table without the sentences marked as unwanted.
 
-6. '''Help''': presents this description.
+* `Help`: presents this description.
 
-7. '''Exit''': terminates the program.
+* `Exit`: terminates the program.
 
 ## 8. Record script with a native speaker using our recording tool "Redstart"
 
 In the recording tool Redstart, there is an import functionality for the text files generated from the synthesis script selection GUI. From the Redstart menu, select "File"->"Import text file..." and follow the on-screen instructions.
 
-More information: [http://mary.opendfki.de/wiki/RedStart RedStart: Voice recording tool for TTS]
+More information: [RedStart: Voice recording tool for TTS](http://mary.opendfki.de/wiki/RedStart)
 
 ## 9. Convert recorded audio
-Usually it makes sense to convert the audio recorded from the speaker before building a synthetic voice from it. MARY provides a GUI that provides a range or processing options. It can be started as follows:
+Usually it makes sense to convert the audio recorded from the speaker before building a synthetic voice from it. MARY TTS provides a GUI that provides a range or processing options. It can be started as follows:
 
-{{{
-java -cp mary-common.jar:swing-layout-1.0.jar:signalproc.jar marytts.util.data.audio.AudioConverterGUI
-}}}
+    $ audio_converter_GUI.sh
 
-[[Image(AudioConverterGUI.png)]]
+![Audio converter gui screenshot](AudioConverterGUI.png)
 
 The following options are provided:
 
@@ -362,5 +350,6 @@ The following options are provided:
 
 See:
 
- * [wiki:VoiceImportToolsTutorial Building a New Voice for MARY using Voice Import Components]
- * [http://mary.opendfki.de/wiki/HMMVoiceCreation Creating an HMM-based voice]
+ * http://mary.opendfki.de/wiki/VoiceImportToolsTutorial
+ * http://mary.opendfki.de/wiki/HMMVoiceCreation
+ 
