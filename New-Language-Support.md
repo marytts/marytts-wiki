@@ -206,39 +206,42 @@ If that goes well, it should be possible to start the marytts server:
 
 To test the system manually, place a query via the HTTP interface, for input format TEXT, locale xy, and output formats up to TARGETFEATURES. A suitable test request can be placed from http://localhost:59125/documentation.html. It is a good idea to check whether the output for TOKENS, PARTSOFSPEECH, PHONEMES, INTONATION and ALLOPHONES looks roughly as expected.
 
-In order to continue with the next step, you will need to have a marytts server with this locale running, so that the FeatureMaker can compute feature vectors for computing diphone coverage.
-
-## 5. Run feature maker with the minimal nlp components
-
-The '''FeatureMaker''' program splits the clean text obtained in step 2 into sentences, classify them as reliable, or non-reliable (sentences with unknownWords or strangeSymbols) and extracts context features from the reliable sentences. All this extracted data will be  kept in the DB.
+In order to continue with the next step, you will need to have a marytts system with this locale operational, so that the FeatureMaker can compute feature vectors for computing diphone coverage.
 
 
-There is a variant of the program, '''FeatureMakerMaryServer''', which calls an external Mary server instead of starting the Mary components internally. It takes the additional command line arguments ''-maryHost localhost -maryPort 59125''.
+## 5. Run feature maker with the minimal NLP components
+
+The *FeatureMaker* program splits the clean text obtained in step 2 into sentences, classifying them as reliable or non-reliable (sentences with unknown words or strange symbols) and extracts context features from the reliable sentences. All this extracted data will be  kept in the DB.
+
+To run the feature maker, you *must* have the new language components available in `marytts/target/marytts-<version>/` as described in the previous step. DO NOT TRY TO PROCEED before having achieved step 4.
+
+    $ wkdb_featuremaker.sh wkdb.conf 
+
+(There is a variant of the program, *FeatureMakerMaryServer*, which calls an external Mary server instead of starting the Mary components internally. It takes the additional command line arguments `-maryHost localhost -maryPort 59125`. Adapt the above script if you need to use this for some reason.)
 
 Output:
 
 - After processing every cleanText record it will mark the record as processed=true, so if the program stops it can be re-started and it will continue processing the non-processed cleanText records.
 
-- A file containing the feature definition of the features used for selection, the name of this file depends on the locale, for example for "en_US" it will be "/current-dir/en_US_featureDefinition.txt". This file will be used in the Database selection step.
+- A file containing the feature definition of the features used for selection, the name of this file depends on the locale, for example for "en_US" it will be `/current-dir/en_US_featureDefinition.txt`. This file will be used in the Database selection step.
 
-- It creates one table in the the database, the name of the table depends on the locale, for example if the locale is "en_US" it will create the table en_US_dbselection, its descriptions is:
+- It creates one table in the the database, the name of the table depends on the locale, for example if the locale is "en_US" it will create the table `en_US_dbselection`, its descriptions is:
 
-{{{
-mysql> desc en_US_dbselection;
-+----------------+------------------+------+-----+---------+----------------+
-| Field          | Type             | Null | Key | Default | Extra          |
-+----------------+------------------+------+-----+---------+----------------+
-| id             | int(11)          | NO   | PRI | NULL    | auto_increment | 
-| sentence       | mediumblob       | NO   |     |         |                | 
-| features       | blob             | YES  |     | NULL    |                | 
-| reliable       | tinyint(1)       | YES  |     | NULL    |                | 
-| unknownWords   | tinyint(1)       | YES  |     | NULL    |                | 
-| strangeSymbols | tinyint(1)       | YES  |     | NULL    |                | 
-| selected       | tinyint(1)       | YES  |     | NULL    |                | 
-| unwanted       | tinyint(1)       | YES  |     | NULL    |                | 
-| cleanText_id   | int(10) unsigned | NO   |     |         |                | 
-+----------------+------------------+------+-----+---------+----------------+
-}}}
+        mysql> desc en_US_dbselection;
+        +----------------+------------------+------+-----+---------+----------------+
+        | Field          | Type             | Null | Key | Default | Extra          |
+        +----------------+------------------+------+-----+---------+----------------+
+        | id             | int(11)          | NO   | PRI | NULL    | auto_increment | 
+        | sentence       | mediumblob       | NO   |     |         |                | 
+        | features       | blob             | YES  |     | NULL    |                | 
+        | reliable       | tinyint(1)       | YES  |     | NULL    |                | 
+        | unknownWords   | tinyint(1)       | YES  |     | NULL    |                | 
+        | strangeSymbols | tinyint(1)       | YES  |     | NULL    |                | 
+        | selected       | tinyint(1)       | YES  |     | NULL    |                | 
+        | unwanted       | tinyint(1)       | YES  |     | NULL    |                | 
+        | cleanText_id   | int(10) unsigned | NO   |     |         |                | 
+        +----------------+------------------+------+-----+---------+----------------+
+
 
 ## 6. Database selection
 
