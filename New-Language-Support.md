@@ -129,6 +129,8 @@ This should create a file `wikilist.txt` which should contain something like:
 
   Create pronunciation dictionary,  train letter-to-sound rules and prepare list of functional words for primitive POS tagger using MARY Transcription Tool.
 
+    $ transcription.sh 
+
   More details available at  http://mary.opendfki.de/wiki/TranscriptionTool
 
 ## 4. Minimal NLP components for the new language
