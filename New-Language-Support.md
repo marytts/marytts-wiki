@@ -1,5 +1,5 @@
 # Adding support for a new language to MARY TTS
-This page outlines the steps necessary to add support for a new language to MARY TTS.
+This page outlines the steps necessary to add support for a new language to MARY TTS 5.
 
 The following picture outlines the overall process.
 
@@ -7,14 +7,50 @@ The following picture outlines the overall process.
 
 The following sections describe the various steps involved.
 
+# 0. Set up your environment
+
+## 0.1 Compile marytts builder tools
+
+First make sure you have built the MARY TTS software from source, using `mvn install` as described in the README. All software required for building the voice should now be located below
+
+    marytts/target/marytts-builder-<version>/
+
+with all shell scripts used in this page located in 
+
+    marytts/target/marytts-builder-<version>/bin/
+
+So please either place that folder into your `$PATH` or prefix each call to a shell script with `marytts/target/marytts-builder-<version>/bin/`.
+
+## 0.2 Create a wiki data directory
+
+Create an empty directory as your wiki data directory.
+
+In your wiki data directory run the `wkdb_setup.sh` with the appropriate parameters,
+
+    wkdb_setup.sh [wkdb data path] [wkdb locale] [mary locale]
+
+where
+
+    wkdb data path: path for the wkdb data path a configuration file will be create
+    wkdb locale: the two letter locale for your language (e.g.: en, de, te, it, ...)
+    mary locale: the extended mary locale for your language (e.g.: en_US, en_GB, de, te, it, ...)
+
+e.g.:
+
+    marytts/target/marytts-builder-<VERSION>/bin/wkdb_setup.sh ./ en en_US
+
+
+This creates a config file `wkdb.conf` (Please look at the configuration file `wkdb.conf` and change it according to your needs)
+
+
 # 1. Download xml dump of wikipedia in your language
 
   Information about where and how to download the wikipedia in several languages is in: http://en.wikipedia.org/wiki/Wikipedia_database
 
   for example:
 
-1. English xml dump of wikipedia available at : http://download.wikimedia.org/enwiki/latest/ ( example file: enwiki-latest-pages-articles.xml.bz2 4.1 GB )
-2. Telugu xml dump of wikipedia available at : http://download.wikimedia.org/tewiki/latest/
+* English xml dump of wikipedia available at : http://download.wikimedia.org/enwiki/latest/ ( example file: enwiki-latest-pages-articles.xml.bz2 4.1 GB )
+* Telugu xml dump of wikipedia available at : http://download.wikimedia.org/tewiki/latest/
 
         wget -b http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
 
