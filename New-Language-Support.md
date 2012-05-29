@@ -146,11 +146,12 @@ The easiest way to do this is probably to copy one of the existing language proj
 
 Now the key files to edit will be:
 
-    marytts-lang-xy/pom.xml # the maven project file
+    # the maven project file
+    marytts-lang-xy/pom.xml
 
     # From transcription tool, copy source files for future reference:
-    lib/modules/xy/lexicon/allophones.xy.xml
-    lib/modules/xy/lexicon/xy.txt
+    marytts-lang-xy/lib/modules/xy/lexicon/allophones.xy.xml
+    marytts-lang-xy/lib/modules/xy/lexicon/xy.txt
 
     # Copy runtime files from the transcription tool:
     marytts-lang-xy/src/main/resources/marytts/language/xy/lexicon/allophones.xy.xml
@@ -159,7 +160,7 @@ Now the key files to edit will be:
     marytts-lang-xy/src/main/resources/marytts/language/xy/tagger/xy_pos.fst
 
     # Create a default text for your language:
-    marytts-lang-xs/src/main/resources/marytts/language/xy/datatypes/TEXT.xy.example
+    marytts-lang-xy/src/main/resources/marytts/language/xy/datatypes/TEXT.xy.example
 
     # The config file is the heart of your new language support. Copy from other language, edit carefully:
     marytts-lang-xy/src/main/resources/marytts/language/xy/xy.config
