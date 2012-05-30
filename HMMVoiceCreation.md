@@ -139,7 +139,7 @@ Once compiled the voice, follow the instructions in [Publishing-a-MARY-TTS-Voice
 
 If you are creating a voice in other language you will need to specify:
 
-**Minimal NLP components**: if you are creating a new voice from scratch, for example following the steps in NewLanguageSupport, you will need to create Minimal NLP components for the new language. These minimal components are necessary to run the MARY server in the new language and extract context features (phonefeatures directory). 
+**Minimal NLP components**: if you are creating a new voice from scratch, for example following the steps in [NewLanguageSupport](https://github.com/marytts/marytts/wiki/New-Language-Support), you will need to create Minimal NLP components for the new language. These minimal components are necessary to run the MARY server in the new language and extract context features (phonefeatures directory). 
 
 **Phoneme set**: contained in $MARY_BASE/marytts-lang-xx/src/main/resources/marytts/language/xx/lexicon/allophones.xx.xml , where xx corresponds to the new language. 
 
