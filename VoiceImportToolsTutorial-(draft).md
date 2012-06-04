@@ -77,8 +77,9 @@ After downloading MARY TTS (and run mvn install), run the voice import tools in 
 **Global Configuration Settings**  
 When you are running the voice building tools for the first time, it asks you general configuration settings like:  
 
+    estDir       : /your/path/to/Festival/speech_tools (important when creating unit selection voices)
     gender       : male or female 
-    locale       : depends on your voice language, it can be: en_US, de, 
+    locale       : depends on your voice language, it can be: en_US, de, CHECK which others??? 
     marybase     : /your/path/to/marytts/
     samplingrate : 16000
     voicename    : my_voice  
