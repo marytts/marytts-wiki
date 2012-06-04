@@ -7,7 +7,7 @@ In a nutshell, the Voice Import Tools cover the following steps in voice buildin
 1. Feature Extraction from Acoustic Data  
 2. Feature Vector Extraction from Text Data  
 3. Automatic Labeling  
-4. Unit Selection voice building  
+4. [Unit Selection voice building](https://github.com/marytts/marytts/wiki/UnitSelectionVoiceCreation)  
 5. [HMM-based voice building](https://github.com/marytts/marytts/wiki/HMMVoiceCreation)  
 6. [Publishing-a-MARY-TTS-Voice](https://github.com/marytts/marytts/wiki/Publishing-a-MARY-TTS-Voice)  
 
