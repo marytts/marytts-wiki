@@ -108,7 +108,7 @@ While executing each component, a Progress bar shows the percentage of work comp
 
 
 An explanation about Individual Voice Import Components and how to create a new **Unit selection voice** can be found here:  
-- [UnitSelectionVoiceCreation](https://github.com/marytts/marytts/wiki/HMMVoiceCreation)
+- [UnitSelectionVoiceCreation](https://github.com/marytts/marytts/wiki/UnitSelectionVoiceCreation)
 
 An explanation about how to create a new **HMM-based voice** can be found here:  
 - [HMMVoiceCreation](https://github.com/marytts/marytts/wiki/HMMVoiceCreation).
