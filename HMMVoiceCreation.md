@@ -131,7 +131,7 @@ The training procedure can take several hours, please check the log file time to
 
 ***
 
-##<a name="stepV" /> V. Adding a new HMM-based voice in MARY platform
+##<a name="stepV" /> V. Adding a new HMM-based voice in MARY
 
 14- Run the **HMMVoiceCompiler** to compile the voice to be used in MARY TTS. The default setting values of this component are already fixed.  
 Once the voice is compiled, follow the instructions in [Publishing-a-MARY-TTS-Voice](https://github.com/marytts/marytts/wiki/Publishing-a-MARY-TTS-Voice) to install the voice.
