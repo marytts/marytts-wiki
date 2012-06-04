@@ -5,8 +5,9 @@ The steps for building a HMM voice for the MARY platform can be summarised in:
 I. [Download MARY TTS including Voice import tools](https://github.com/marc1s/marytts#readme)  
 II. [Required programs and files](#stepII)  
 III. [Preparing data for training a HMM-voice](#stepIII)  
-IV. [Training a HMM-voice](#stepIV)  
-V. [Training a HMM-voice in other language](#stepV)  
+IV. [Training a HMM-voice](#stepIV)   
+V. [Adding a new HMM-based voice in MARY platform](#stepV)  
+VI. [Training a HMM-voice in other language](#stepVI)  
 
 ***
 
@@ -128,14 +129,16 @@ as is normally done with the original HTS scripts. This component will generate 
 
 The training procedure can take several hours, please check the log file time to time to check progress. 
 
-**Adding a new voice in the MARY platform:**
+***
 
-14- Run the **HMMVoiceCompiler** to compile and install the voice in MARY TTS. The default setting values of this component are already fixed.  
-Once compiled the voice, follow the instructions in [Publishing-a-MARY-TTS-Voice](https://github.com/marytts/marytts/wiki/Publishing-a-MARY-TTS-Voice) to install the voice.
+##<a name="stepV" /> V. Adding a new HMM-based voice in MARY platform
+
+14- Run the **HMMVoiceCompiler** to compile the voice to be used in MARY TTS. The default setting values of this component are already fixed.  
+Once the voice is compiled, follow the instructions in [Publishing-a-MARY-TTS-Voice](https://github.com/marytts/marytts/wiki/Publishing-a-MARY-TTS-Voice) to install the voice.
 
 ***
 
-##<a name="stepV" /> V. Training a HMM-voice in another language
+##<a name="stepVI" /> VI. Training a HMM-voice in another language
 
 If you are creating a voice in other language you will need to specify:
 
