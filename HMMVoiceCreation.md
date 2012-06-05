@@ -12,16 +12,17 @@ VI. [Training a HMM-voice in other language](#stepVI)
 ***
 
 ## <a name="stepII" /> II. Required programs and files
-We provide an script to facilitate the checking and installation of the necessary external programs, once MARY TTS has been installed, open a command line shell in your voice building directory and run the shell script:
- 
-    $MARY_BASE/lib/external/check_install_external_programs.sh
+We provide an script to facilitate the checking and installation of the necessary external programs, once MARY TTS has been installed, open a command line shell run the commands:  
 
-With the option -check, this script will check if the necessary programs and versions are installed (that is, the programs can be found in the PATH or in the paths provided by the user).
-With the option -install this script will try to download and install the necessary programs in: $MARY_BASE/lib/external/bin (if problems, it will suggest how to install manually the programs).
+    cd $MARY_BASE/lib/external/
+    ./check_install_external_programs.sh
+
+With the option **-check**, this script will check if the necessary programs and versions are installed (that is, the programs can be found in the PATH or in the paths provided by the user).
+With the option **-install** this script will try to download and install the necessary programs in: $MARY_BASE/lib/external/bin (if problems, it will suggest how to install manually the programs).
 
 If you have already installed some of the required programs, please include their paths in the PATH variable or provide the paths, for example:
 
-    $MARY_BASE/lib/external/check_install_external_programs.sh -check /your/path/to/htk/bin /your/path/to/Festival/festvox/src/ehmm/bin
+    $MARY_BASE/lib/external/check_install_external_programs.sh -check /path/to/htk/bin /path/to/Festival/festvox/src/ehmm/bin
 
 This script generates a $MARY_BASE/lib/external/externalBinaries.config file that will be used by the Voice import tools to locate the necessary external programs.
 
