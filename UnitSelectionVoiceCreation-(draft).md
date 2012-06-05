@@ -49,118 +49,102 @@ The output of this component is a text directory in your voice building director
 
 ### <a name="step3" /> 3. Automatic Labeling
 
-**AllophonesExtractor** 
-creates the prompt_allophones directory required in the next step. This component requires the MARY server.
+**AllophonesExtractor**  
+Creates the prompt_allophones directory required in the next step. `Note: This component requires the MARY seerver`
 
 **EHMMlabeler**  
-labelss automatically the wav files using the corresponding transcriptions. If the pauses at the beginning and end of your recordings are longer than 0.2 seconds, you might consider to reduce these pauses using the tool: Convert recorded audio (as explained in NewLanguageSupport No. 9) to trim initial and final silences.
+EHMM Labeler is a labeling tool, which generates label files with help of Wave files and corresponding Transcriptions. EHMM basic tool is available with Festvox Recent Version. For running EHMM Labeler under MARY environment you need to compile EHMM tool in your machine. It may take long time depending on the size of the data and system configuration.  
 
-The EHMMLabeler procedure might take several hours. For running EHMMLabeler, please use the settings editor of this component to set, according to your festvox installation, the variable:
+**LabelPauseDeleter**  
+It may be necessary to run the LabelPauseDeleter after the label files have been created by EHMM, to avoid problems with subsequent voice building components. 
 
-    EHMMLabeler.ehmm  = ../festvox/src/ehmm/bin/
+**LabelledFilesInspector**  
+It allows to browse through aligned labels and listen to the corresponding wave file. It is useful for perceptual manual verification on alignment. 
 
-The result of this step is a ehmm/lab directory.
 
 ### <a name="step4" /> 4. Label-transcription Alignment  
 
 **PhoneUnitLabelComputer**  
+Converts the label files into the label files used by Mary: phone labels (phonelab directory)
 
-**HalfPhoneUnitLabelComputer**
+**HalfPhoneUnitLabelComputer**  
+Converts the label files into the label files used by Mary: halfphone labels (halfphonelab directory)
 
 **TranscriptionAligner**  
+This component will create the allophones directory.
 
 ### <a name="step5" /> 5. Feature Vector Extraction from Text Data
-FeatureSelection  
-PhoneUnitfeatureComputer  
-HalfPhoneUnitfeatureComputer  
+**FeatureSelection**  
+Allows you to select context features for building the voice. The selected context feature names are saved in your voice building directory in: mary/features.txt
+
+**PhoneUnitfeatureComputer**  
+Computes Phone feature vectors for Unit Selection Voice building process. `Note: This component requires the MARY seerver`
+
+You can connect to a different server by altering the settings. See the settings help for more information on this.  
+
+**HalfPhoneUnitfeatureComputer**  
+Computes half phone level feature vectors. 
 
 ### <a name="step6" /> 6. Verify Alignment  
-PhoneLabelfeatureAlignment
-HalfPhoneLabelfeatureAlignment
+**PhoneLabelfeatureAlignment**  
+It tries to align the labels and the feature vectors. If the alignment fails, you can start the automatic pause correction.  
+This works as follows:  
+- pauses, that are in the label file but not in the feature file are deleted in the label file, and the durations of the previous and next labels are stretched.  
+- pauses that are in the feature file but not in the label file are inserted into the label file with length zero.  
+If there are still errors after the pause correction, you are prompted for each error. You can skip the error or remove the corresponding file from the basename list (the list of files that are used for your voice). "skip all" and "remove all" does this for all problematic files. "Edit unit labels" allows you to edit the label file. "Edit RAWMARYXML" let you edit the maryxml that is the input for computing the features. You have to have a Maryserver running in order to recompute the features from the maryxml. You can alter the host and port settings for the server by altering the settings for the UnitFeatureComputer. 
+
+**HalfPhoneLabelfeatureAlignment**  
+It works like the previous component.
 
 ### <a name="step7" /> 7. Basic Data Files  
-WaveTimelineMaker  
-BasenameTimelineMaker  
-MCepTimelineMaker  
+**WaveTimelineMaker**  
+The WaveTimelineMaker split the waveforms as datagrams to be stored in a timeline in Mary format. It produces a binary file, which contains all wave files. 
+
+**BasenameTimelineMaker**  
+The BasenameTimelineMaker takes a database root directory and a list of basenames, and associates the basenames with absolute times in a timeline in Mary format. 
+
+**MCepTimelineMaker**  
+The MCepTimelineMaker takes a database root directory and a list of basenames, and converts the related wav files into a mcep timeline in Mary format. 
 
 ### <a name="step8" /> 8. Building acoustic models  
-PhoneUnitfileWriter  
-PhoneFeatureFileWriter  
-DurationCARTTrainer  
-F0CARTTrainer  
+**PhoneUnitfileWriter**  
+It produces a file containing all phone sized units. 
+
+**PhoneFeatureFileWriter**  
+It produces a file containing all the target cost features for the phone sized units. The module needs a file defining which features are to be used and what weights are given to them. They must be the same features as the ones that the PhoneFeatureComputer used. If you do not have a feature definition, the module tries to create one. 
+
+**DurationCARTTrainer**  
+It builds an acoustic model of durations in the database using the program "wagon" from the Edinburgh Speech tools.
+
+**F0CARTTrainer**  
+It builds acoustic models of F0 like DurationCARTTrainer. It uses "wagon" and the files produced by PhoneUnitfileWriter and PhoneFeatureFileWriter. 
 
 ### <a name="step9" /> 9. Unit Selection Files  
 
 **HalfPhoneUnitfileWriter**  
-It produces a file containing all halfphone sized units. Configuration Settings:
-
-    corrPmDir - directory containing the corrected pitchmarks
-    labelDir - directory containing the halfphone labels
-    unitFile - file containing all halfphone units. Will be created by this module 
+It produces a file containing all halfphone sized units.  
 
 **HalfPhoneFeatureFileWriter**  
 It produces a file containing all the target cost features for the phone sized units. The module needs a file defining which features are to be used and what weights are given to them. They must be the same features as the ones that the HalfPhoneFeatureComputer used. If you do not have a feature definition, the module tries to create one.  
 
-For more information, see the example file: Marybase/lib/modules/import/examples/HalfPhoneUnitFeatureDefinition.txt  CHECK!
-
-Configuration Settings:
-
-    featureDir - directory containing the halfphone features
-    featureFile - file containing all halfphone units and their target cost features.Will be created by this module
-    unitFile - file containing all halfphone units
-    weightsFile - file containing the list of halfphone target cost features, their values and weights 
-
-**JoinCostFileMaker**  
-It produces a file containing all the join cost features for the halfphone sized units. Configuration Settings:
-
-    joinCostFile - file containing all halfphone units and their join cost features. Will be created by this module
-    mcepDir - directory containing the mcep files
-    mcepTimeline - file containing all mcep files
-    unitFile - file containing all halfphone units
-    weightsFile - file containing the list of join cost weights and their weights 
-
 **AcousticFeatureFileWriter**  
 It produces a file containing all the target cost features plus two acoustic target cost features for the halfphone sized units. Also produces a feature definition containing those features.
 
-    acFeatDef - file containing the list of phone target cost features, their values and weights
-    acFeatureFile - file containing all halfphone units and their target cost features plus the acoustic target cost features. Will be created by this module.
-    featureFile - file containing all halfphone units and their target cost features
-    unitFile - file containing all halfphone units
-    waveTimeLine - file containing all wave files 
+**JoinCostFileMaker**  
+It produces a file containing all the join cost features for the halfphone sized units.  
 
 **CARTBuilder**  
-It builds a preselection tree for the target cost features using "wagon" (CART) from the Edinburgh Speech tools.  
-Additionally, User need to specify either a feature sequence or a top level tree. They are used to built a basic tree that is extendend by wagon. This way, wagon runs several times on smaller subsets of units rather than the whole set. It might still take some time to run this module.
+It builds a preselection tree for the target cost features using "wagon" (CART) from the Edinburgh Speech tools.    
+Additionally, the user needs to specify either a feature sequence or a top level tree. They are used to built a basic tree that is extended by wagon. This way, wagon runs several times on smaller subsets of units rather than the whole set. It might still take some time to run this module.
 
     Feature sequence: A file containing a list of features for which to build the tree.
     Top level tree: A file containing the basic tree. 
 
-For more information on these two possibilities of specifying the basic tree, see the example files in Marybase/lib/modules/import/examples/  CHECK!
-
-If you give the CARTBuilder neither a feature sequence nor a top level tree file, a default feature sequence is created which only contains "mary_phoneme" as feature. If the basic tree contains leaves that are contain more units than the maximum number of units allowed, the leaves are pruned and a warning message is printed. It is recommended that you make sure that there are no leaves that are too big.  
-Configuration Settings:
-
-    acFeatureFile - file containing all halfphone units and their target cost features plus the acoustic target cost features
-    cartFile - file containing the preselection CART. Will be created by this module
-    estDir - directory containing the local installation of the Edinburgh Speech Tools
-    featureSeqFile - file containing the feature sequence for the basic tree
-    maxLeafSize - the maximum number of units in a leaf of the basic tree
-    mcepTimeline - file containing the mcep files
-    readFeatureSequence - if "true", basic tree is read from feature sequence file; if "false", basic tree is read from top level tree file.
-    topLevelTreeFile - file containing the basic tree
-    unitFile - file containing all halfphone units 
-
-**CARTPruner**  
-It prunes the preselection tree and this module also removes outliers from the preselection tree. Configuration Settings:
-
-    cartFile - file containing the preselection CART
-    prunedCartFile - file containing the pruned preselection CART. Will be created by this module
-    unitFeatureFile - file containing all halfphone units and their target cost features
-    unitFile - file containing all halfphone units
-    waveFile - file containing all wave files 
+If you give the CARTBuilder neither a feature sequence nor a top level tree file, a default feature sequence is created which only contains "mary_phoneme" as feature. If the basic tree contains leaves that contain more units than the maximum number of units allowed, the leaves are pruned and a warning message is printed. It is recommended that you make sure that there are no leaves that are too big.  
 
 
 ### <a name="step10" /> 10. Adding a new unit selection voice in MARY 
-**VoiceCompiler** compiles the voice to be used in MARY TTS. The default setting values of this component are already fixed.  
+**VoiceCompiler**  
+Compiles the voice to be used in MARY TTS. The default setting values of this component are already fixed.  
 Once the voice is compiled, follow the instructions in [Publishing-a-MARY-TTS-Voice](https://github.com/marytts/marytts/wiki/Publishing-a-MARY-TTS-Voice) to install the voice.
 
