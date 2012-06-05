@@ -19,13 +19,14 @@ In a nutshell, the Voice Import Tools cover the following steps in voice buildin
 
 **Dependent Tools:**  
 - Praat - For pitch marks. On Ubuntu-like systems, install the praat package. Otherwise, download [Praat](http://www.fon.hum.uva.nl/praat)  
-- Edinburgh Speech Tools – For MFCCs and Wagon (CART). On Ubuntu-like systems, install the speech-tools package. Otherwise, download and install manually [Speech Tools](http://www.cstr.ed.ac.uk/projects/speech_tools/)  
-- EHMM – For Automatic Labeling, EHMM is available in $MARYBASE/lib/external/ehmm.tar.gz, or with Festvox version 2.1 or newer:  http://festvox.org/download.html
+- Edinburgh Speech Tools – For MFCCs and Wagon (CART). On Ubuntu-like systems, install the speech-tools package. Otherwise, download and install manually [Speech Tools](http://www.cstr.ed.ac.uk/projects/speech_tools/). The path for this tool can be provided with the general settings:  
 
-Once the EHMM binaries have been built, the path to the EHMM bin directory must be provided to MARY. Currently, the easiest way to do this is by running the check_install_external_programs.sh script in     $MARY_BASE/lib/external/ with the -check argument, which generates a file called externalBinaries.config. This file must provide the path to the EHMM bin directory. Alternatively, create this file and (replacing /path/to/ehmm/bin with the correct path to the EHMM bin directory) insert the line:
+    db.estDir  : /path/to/Festival/speech_tools/
 
-    external.ehmmPath /path/to/ehmm/bin
+- EHMM – For Automatic Labeling, EHMM is available in $MARYBASE/lib/external/ehmm.tar.gz, or with Festvox version 2.1 or newer:  http://festvox.org/download.html. Once the EHMM binaries have been built, the path to the EHMM bin directory must be provided to MARY. The path for this tool can be provided on the EHMM component settings:   
 
+        EHMMLabeler.ehmmDir  : /path/to/ehmm/
+ 
 ## Voice Import Components: 
 
 <center>![VoiceImport Tools GUI](http://mary.opendfki.de/raw-attachment/wiki/VoiceImportToolsTutorial/VIC1.jpg)</center>
@@ -48,21 +49,21 @@ The components in the GUI are organised according to:
 
 The two basic requirements for building a voice are:  
 a. Wave files  
-b. Corresponding Transcription (in MARY or Festvox Format)  
-MARY Format : Each transcription represented by a single file. All these files placed in a single directory. By default, all these files placed in 'text' directory of voice-building directory.  
-Festvox (Festival) Format : A single file contains all transcriptions. For examples see below example.  
+b. Corresponding Transcription (in MARY or Festvox Format):  
+- MARY Format : Each transcription represented by a single file. All these files placed in a single directory. By default, all these files placed in 'text' directory of voice-building directory.  
+- Festvox (Festival) Format : A single file contains all transcriptions, example:  
 
-    ( arctic_a0001 "AUTHOR OF THE DANGER TRAIL, PHILIP STEELS, ETC" )
-    ( arctic_a0002 "Not at this particular case, Tom, apologized Whittemore." )
-    ( arctic_a0003 "For the twentieth time that evening the two men shook hands." )
-    ( arctic_a0004 "Lord, but I'm glad to see you again, Phil." )
-    ( arctic_a0005 "Will we ever forget it." )
+        ( arctic_a0001 "AUTHOR OF THE DANGER TRAIL, PHILIP STEELS, ETC" )
+        ( arctic_a0002 "Not at this particular case, Tom, apologized Whittemore." )
+        ( arctic_a0003 "For the twentieth time that evening the two men shook hands." )
+        ( arctic_a0004 "Lord, but I'm glad to see you again, Phil." )
+        ( arctic_a0005 "Will we ever forget it." )
 
 ### 1. Create a new Voice Building Directory
 
-Create a voice building directory somewhere on your file system, say /home/me/myvoice.  
-- Put all Wave files into the wav sub-directory of the voice building directory, i.e. /home/me/myvoice/wav. You may want to use the Audio converter GUI to make sure that this data is mono, at the right sampling rate, doesn't include overly long initial and final pauses, etc.  
-- Either put the individual text files into the myvoice/text subdirectory (if using text files in MARY format), or the single text file in Festvox format into myvoice/txt.done.data.  
+Create a voice building directory somewhere on your file system, say /path/myvoice.  
+- Put all Wave files into the wav sub-directory of the voice building directory, i.e. /path/myvoice/wav. You may want to use the Audio converter GUI to make sure that this data is mono, at the right sampling rate, doesn't include overly long initial and final pauses, etc.  
+- Either put the individual text files into /path/myvoice/text subdirectory (if using text files in MARY format), or the single text file in Festvox format into /path/myvoice/txt.done.data.  
 
 If you want to test this but haven't recorded your own voice files yet, one way of getting data to test this is to use the ARCTIC data from CMU. Download and upack http://www.speech.cs.cmu.edu/cmu_arctic/packed/cmu_us_slt_arctic-0.95-release.tar.bz2, and then:  
 
@@ -86,14 +87,14 @@ When you are running the voice building tools for the first time, it asks you ge
   
 All other settings depend on your voice building path or are default values that are filled automatically.  
 
-After filling in general settings  and clicking the **Save** button, you will get to the main window of the Voice Import Tools. There you can see a list of modules. A component is executed by ticking the associated checkbox and clicking on **Run**. 
+After filling in general settings  and clicking the **Save** button, you will get to the main window of the Voice Import Tools. There you can see a list of components. A component is executed by ticking the associated checkbox and clicking on **Run**. 
 
 **Component Configuration Settings**  
 
 You can verify and change the settings for each individual component by clicking on the wrench symbol next to the component. Clicking on **Settings** takes you to the window where you can change the general settings.  
 There is available a help for each component (in some cases this help might be out-dated).
  
-The import tool creates two files in the directory where you started it:    
+The voice import tool creates two files in the directory where you started it:    
 - **importMain.config:** contains a list of voice import components presented on the GUI
 - **database.config:** contains the values of the settings for each component - you can change the settings also in this file.  
  
