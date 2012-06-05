@@ -28,10 +28,6 @@ Configuration Settings:
 
 **2 MCEPMaker**  
 It calculate MFCCs from Speech Wave files, using Edinburgh Speech Tools.  
-Configuration Settings:  
-
-    mcepDir   : Output Dir for MFCCs  
-
 This component uses the Edinburgh Speech Tools, the path for this tool can be set on the general settings:  
 
     estDir       : /your/path/to/Festival/speech_tool 
@@ -43,14 +39,14 @@ This component uses the Edinburgh Speech Tools, the path for this tool can be se
 This Component converts Festvox Transcription format (ex: txt.done.data) into MARY format, that is one transcription file per sentence. 
 Configuration Settings:  
 
-    transcriptFile - Festvox format transcription file (Absolute path) 
+    transcriptFile : Festvox format transcription file (Absolute path) 
 
 The output of this component is a text directory in your voice building directory, containing one transcription file per sentence.  
 
 ### <a name="step3" /> 3. Automatic Labeling
 
 **AllophonesExtractor**  
-Creates the prompt_allophones directory required in the next step. `Note: This component requires the MARY seerver`
+Creates the prompt_allophones directory required in the next step. `Note: This component requires the MARY server`
 
 **EHMMlabeler**  
 EHMM Labeler is a labeling tool, which generates label files with help of Wave files and corresponding Transcriptions. EHMM basic tool is available with Festvox Recent Version. For running EHMM Labeler under MARY environment you need to compile EHMM tool in your machine. It may take long time depending on the size of the data and system configuration.  
@@ -75,10 +71,11 @@ This component will create the allophones directory.
 
 ### <a name="step5" /> 5. Feature Vector Extraction from Text Data
 **FeatureSelection**  
-Allows you to select context features for building the voice. The selected context feature names are saved in your voice building directory in: mary/features.txt
+Allows you to select context features for building the voice.  `Note: This component requires the MARY server`  
+The selected context feature names are saved in your voice building directory in: mary/features.txt
 
 **PhoneUnitfeatureComputer**  
-Computes Phone feature vectors for Unit Selection Voice building process. `Note: This component requires the MARY seerver`
+Computes Phone feature vectors for Unit Selection Voice building process. `Note: This component requires the MARY server`
 
 You can connect to a different server by altering the settings. See the settings help for more information on this.  
 
