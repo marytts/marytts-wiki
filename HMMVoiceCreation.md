@@ -44,6 +44,23 @@ The necessary programs that this script checks are:
 * [snack](http://www.speech.kth.se/snack/download.html) library for tcl.  
 * EHMM for automatic labeling, available with [festvox-2.1](http://festvox.org/download.html)  
 
+**Mac-specific notes:**
+
+In addition to the above comments, the following notes may be helpful to get the dependencies for HMM-based voice building set up on a Mac.
+
+* Snack: Installing snack on a mac seems to require a few steps. Here is one way:
+
+  - Install ActiveTcl from http://www.activestate.com/activetcl/downloads;
+  - get snack source code from http://www.speech.kth.se/snack/download.html, followed the mac/README to install it (but the files end up in a new /lib/ folder in the root of the hard drive);
+  - move the snack2.2 dir from /lib/ to /Library/Tcl:
+
+            $ sudo mv /lib/snack2.2 /Library/Tcl/
+
+
+* wget: The dependency installer expects wget to be available, so we get it e.g. with MacPorts:
+
+        $ sudo port install wget
+
 ***
 
 ##<a name="stepIII" /> III. Preparing data for training a HMM-voice
@@ -155,7 +172,6 @@ Afterwards follow the instructions as normal from step 1. Provide general settin
     db.locale    =  new_language locale (according to your minimal NLP components, ex. tr for Turkish, te for Telugu, etc.)
     db.marybase  =  /path/to/mary/base/
     db.voicename =  new_language_voice_name
-
 
 
 
