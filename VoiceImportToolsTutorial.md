@@ -80,7 +80,7 @@ When you are running the voice building tools for the first time, it asks you ge
 
     estDir       : /your/path/to/Festival/speech_tools (important when creating unit selection voices)
     gender       : male or female 
-    locale       : depends on your voice language, it can be: en_US, de, CHECK which others??? 
+    locale       : depends on your voice language, it can be: en_US, de, etc. 
     marybase     : /your/path/to/marytts/
     samplingrate : 16000
     voicename    : my_voice  
