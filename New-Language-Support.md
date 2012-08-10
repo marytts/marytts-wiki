@@ -350,6 +350,7 @@ The following options are provided:
 
 See:
 
- * http://mary.opendfki.de/wiki/VoiceImportToolsTutorial
- * http://mary.opendfki.de/wiki/HMMVoiceCreation
+ * https://github.com/marytts/marytts/wiki/VoiceImportToolsTutorial
+ * https://github.com/marytts/marytts/wiki/UnitSelectionVoiceCreation
+ * https://github.com/marytts/marytts/wiki/HMMVoiceCreation
  
