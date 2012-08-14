@@ -139,13 +139,17 @@ all the other variables in 0, and run again the component. (In this case you nee
 
 The procedures can be repeated manually as well, going to the hts/data directory and running "make str-mary" and "make cmp-mary".
 
-13- Run the **HMMVoiceMakeVoice**, here again particular training steps can be repeated selecting them (setting in 1, all the others in 0) from the settings of this component. This is equivalent to run (on the comman line):
+13- Run the **HMMVoiceMakeVoice**, here again particular training steps can be repeated selecting them (setting in 1, all the others in 0) from the settings of this component. 
+
+**NOTE:** Since some people have reported some issues ([issue70](https://github.com/marytts/marytts/issues/70), [issue54] (https://github.com/marytts/marytts/pull/54)) using the java wrapper, it is strongly recomended to better run this step on the command line:
 
     perl scripts/Training.pl scripts/Config.pm > logfile &
 
-as is normally done with the original HTS scripts. This component will generate general information about the execution of the training steps. Detailed information about the training status can be found in the logfile in the current directory.
+as is normally done with the original HTS scripts. 
 
-The training procedure can take several hours, please check the log file time to time to check progress. 
+These procedure is rather complicated and take several hours, so please time to time have a look to logfile, it contains detailed information about latest command used and parameters.
+
+In order to run again particular steps, you just need to activate the corresponding steps in Config.pm, as is normally done with the original HTS scripts.
 
 ***
 
