@@ -77,6 +77,9 @@ This should create a file `wikilist.txt` which should contain something like:
     /current-dir/xml_splits/page3.xml
     ...
 
+*NOTE:* If you experience memory problems you can try to split the big xml dump in smaller chunks.
+
+
 ### 2.2. Wikipedia Markup cleaning and mysql database creation
 
 The next step will be to extract clean text (without wikipedia markup) from the split xml files and save this text and a list of words in a mysql database.
@@ -91,9 +94,6 @@ Once you have a mysql database, you can start to extract clean text and words fr
 
     $ wkdb_cleaning_up.sh wkdb.conf
 
-
-
-*NOTE:* If you experience memory problems you can try to split the big xml dump in smaller chunks.
 
 *Output:*
 
