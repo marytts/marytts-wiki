@@ -70,6 +70,12 @@ For example, after unziping the English wikipedia dump will be approx. 16GB, so 
  
     $ wkdb_split_dump.sh wkdb.conf 
 
+This should create a file `wikilist.txt` which should contain something like:
+
+    /current-dir/xml_splits/page1.xml
+    /current-dir/xml_splits/page2.xml
+    /current-dir/xml_splits/page3.xml
+    ...
 
 ### 2.2. Wikipedia Markup cleaning and mysql database creation
 
@@ -85,12 +91,7 @@ Once you have a mysql database, you can start to extract clean text and words fr
 
     $ wkdb_cleaning_up.sh wkdb.conf
 
-This should create a file `wikilist.txt` which should contain something like:
 
-    /current-dir/xml_splits/page1.xml
-    /current-dir/xml_splits/page2.xml
-    /current-dir/xml_splits/page3.xml
-    ...
 
 *NOTE:* If you experience memory problems you can try to split the big xml dump in smaller chunks.
 
