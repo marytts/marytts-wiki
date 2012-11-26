@@ -23,7 +23,6 @@ Configuration Settings:
     command   : Give absolute path of Praat Executable  
                 (Note for Mac OS users: this should be /Applications/Praat.app/Contents/MacOS/Praat)  
     pmDir     : Output Dir Path for Praat Pitch marks  
-    corrPmDir : Output Dir Path for corrected pitch marks (Pitch marks tuned towards Zero Crossing)  
     maxPitch, minPitch : For choosing Pitch Range (Ex: Male: 50-200 | Female: 150-300)  
 
 **2 MCEPMaker**  
