@@ -15,6 +15,7 @@ The basic idea is to use reasonable defaults when instantiating a MaryInterface,
 
     MaryInterface marytts = new LocalMaryInterface();
     AudioInputStream audio = marytts.generateAudio("This is my text.");
+    MaryAudioUtils.writeWavFile(MaryAudioUtils.getSamplesAsDoubleArray(audio), "/tmp/thisIsMyText.wav", audio.getFormat());
 
 ### Default voice in a different language
 
