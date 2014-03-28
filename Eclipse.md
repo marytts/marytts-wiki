@@ -58,6 +58,23 @@ If you would like to do it in Eclipse, here's how:
 
 3. Choose the local directory containing your new cloned repository, then click **Finish**
 
+## Assemble and install MaryTTS ##
+
+Make the MaryTTS assemblies and install the Maven artifacts, which are required to install or build new voices.
+On the command line, you could simply run `mvn install`, but in Eclipse, follow these steps:
+
+1. Choose **Run** > **Run Configurations...** (or **Run** > **Debug Configurations**)
+
+2. Select **Maven Build** and click the little **New** button
+
+3. Set the **Name** to "install"
+
+4. In the **Main** tab, set the **Base directory** to `${workspace_loc:marytts}`
+
+5. In the **Goals** field, enter `install`, then click **Run** (or **Debug**)
+
+You now have the MaryTTS Runtime and Builder (for new voices and languages) assemblies under the `target` directory of your Git repository, and the MaryTTS Maven artifacts installed in your local Maven repository.
+
 ## Running (or Debugging) the MaryTTS Server ##
 
 1. Choose **Run** > **Run Configurations...** (or **Run** > **Debug Configurations**)
@@ -72,31 +89,17 @@ If you would like to do it in Eclipse, here's how:
 
 6. In the **Arguments** tab, enter the following into the **VM arguments** field:
 
-		-ea -Xmx1g -Dmary.base="${workspace_loc:marytts}" -Dlog4j.logger.marytts=DEBUG,stderr
+		-ea -Xmx1g -Dlog4j.logger.marytts=DEBUG,stderr -Dmary.base="${workspace_loc:marytts}/target/marytts-VERSION"
 
-7. In the **Classpath** tab, select **User Entries**, then click **Add Projects...**.
-   Select `marytts-lang-en` and `voice-cmu-slt-hsmm`, then click **OK**
+	where `VERSION` is the current version in your MaryTTS `pom.xml`.
+	This may very well be something suffixed with `-SNAPSHOT`.
+
+7. In the **Classpath** tab, select **User Entries**, then click **Add Projects...** and
+   select `marytts-lang-en` and `voice-cmu-slt-hsmm`, then click **OK**
 
 8. Click **Apply**, then click **Run** (or **Debug**)
 
 Navigate to http://localhost:59125/ in your web browser and as you interact with the MaryTTS server, note the `DEBUG` level output in your Eclipse console.
-
-## Assemble a valid MaryTTS base installation ##
-
-Make the MaryTTS assemblies, which are required to install or build new voices.
-On the command line, you could simply run `mvn package`, but in Eclipse, follow these steps:
-
-1. Choose **Run** > **Run Configurations...** (or **Run** > **Debug Configurations**)
-
-2. Select **Maven Build** and click the little **New** button
-
-3. Set the **Name** to "package"
-
-4. In the **Main** tab, set the **Base directory** to `${workspace_loc:marytts}`
-
-5. In the **Goals** field, enter `package`, then click **Run** (or **Debug**)
-
-You now have the MaryTTS Runtime and Builder (for new voices and languages) assemblies under the `target` directory of your Git repository.
 
 ## Running (or Debugging) the Voice Installer ##
 
@@ -145,7 +148,7 @@ you can build a new voice from within Eclipse in the following way:
 	
 	where `MYVOICEDIR` is the voicebuilding directory containing your voice data.
 
-7. In the **Classpath** tab, select **User Entries**, then click **Add Projects...**.
-   Select `marytts-lang-en` (or if you want to build a voice for a different language, the Maven module project corresponding to that locale), then click **OK**
+7. In the **Classpath** tab, select **User Entries**, then click **Add Projects...** and
+   select `marytts-lang-en` (or if you want to build a voice for a different language, the Maven module project corresponding to that locale), then click **OK**
 
 8. Click **Apply**, then click **Run** (or **Debug**)
