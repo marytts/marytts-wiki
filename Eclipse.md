@@ -3,7 +3,7 @@
 ## Preliminaries ##
 
 The easiest and therefore recommended way to debug or develop MaryTTS is using [Eclipse IDE for Java developers](http://eclipse.org).
-We have tested with Eclipse Juno and Kepler.
+We have tested with Eclipse Juno, Kepler, and Luna.
 Older versions will probably *not* work as advertised.
 
 Two relevant Eclipse plugins are [m2e](http://eclipse.org/m2e/) (Maven Integration)
