@@ -73,23 +73,23 @@ This component will create the allophones directory.
 Allows you to select context features for building the voice.  `Note: This component requires the MARY server`  
 The selected context feature names are saved in your voice building directory in: mary/features.txt
 
-**PhoneUnitfeatureComputer**  
+**PhoneUnitFeatureComputer**  
 Computes Phone feature vectors for Unit Selection Voice building process. `Note: This component requires the MARY server`
 
 You can connect to a different server by altering the settings. See the settings help for more information on this.  
 
-**HalfPhoneUnitfeatureComputer**  
+**HalfPhoneUnitFeatureComputer**  
 Computes half phone level feature vectors. 
 
 ### <a name="step6" /> 6. Verify Alignment  
-**PhoneLabelfeatureAlignment**  
+**PhoneLabelFeatureAlignment**  
 It tries to align the labels and the feature vectors. If the alignment fails, you can start the automatic pause correction.  
 This works as follows:  
 - pauses, that are in the label file but not in the feature file are deleted in the label file, and the durations of the previous and next labels are stretched.  
 - pauses that are in the feature file but not in the label file are inserted into the label file with length zero.  
 If there are still errors after the pause correction, you are prompted for each error. You can skip the error or remove the corresponding file from the basename list (the list of files that are used for your voice). "skip all" and "remove all" does this for all problematic files. "Edit unit labels" allows you to edit the label file. "Edit RAWMARYXML" let you edit the maryxml that is the input for computing the features. You have to have a Maryserver running in order to recompute the features from the maryxml. You can alter the host and port settings for the server by altering the settings for the UnitFeatureComputer. 
 
-**HalfPhoneLabelfeatureAlignment**  
+**HalfPhoneLabelFeatureAlignment**  
 It works like the previous component.
 
 ### <a name="step7" /> 7. Basic Data Files  
@@ -122,6 +122,9 @@ It produces a file containing all halfphone sized units.
 
 **HalfPhoneFeatureFileWriter**  
 It produces a file containing all the target cost features for the phone sized units. The module needs a file defining which features are to be used and what weights are given to them. They must be the same features as the ones that the HalfPhoneFeatureComputer used. If you do not have a feature definition, the module tries to create one.  
+
+**F0PolynomialFeatureFileWriter**
+You may need to run this part too.
 
 **AcousticFeatureFileWriter**  
 It produces a file containing all the target cost features plus two acoustic target cost features for the halfphone sized units. Also produces a feature definition containing those features.
