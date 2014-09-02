@@ -82,14 +82,14 @@ You can connect to a different server by altering the settings. See the settings
 Computes half phone level feature vectors. 
 
 ### <a name="step6" /> 6. Verify Alignment  
-**PhoneLabelFeatureAlignment**  
+**PhoneLabelFeatureAligner**  
 It tries to align the labels and the feature vectors. If the alignment fails, you can start the automatic pause correction.  
 This works as follows:  
 - pauses, that are in the label file but not in the feature file are deleted in the label file, and the durations of the previous and next labels are stretched.  
 - pauses that are in the feature file but not in the label file are inserted into the label file with length zero.  
 If there are still errors after the pause correction, you are prompted for each error. You can skip the error or remove the corresponding file from the basename list (the list of files that are used for your voice). "skip all" and "remove all" does this for all problematic files. "Edit unit labels" allows you to edit the label file. "Edit RAWMARYXML" let you edit the maryxml that is the input for computing the features. You have to have a Maryserver running in order to recompute the features from the maryxml. You can alter the host and port settings for the server by altering the settings for the UnitFeatureComputer. 
 
-**HalfPhoneLabelFeatureAlignment**  
+**HalfPhoneLabelFeatureAligner**  
 It works like the previous component.
 
 ### <a name="step7" /> 7. Basic Data Files  
