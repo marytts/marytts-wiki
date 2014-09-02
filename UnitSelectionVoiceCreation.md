@@ -47,7 +47,7 @@ The output of this component is a text directory in your voice building director
 **AllophonesExtractor**  
 Creates the prompt_allophones directory required in the next step. `Note: This component requires the MARY server`
 
-**EHMMlabeler**  
+**EHMMLabeler**  
 EHMM Labeler is a labeling tool, which generates label files with help of Wave files and corresponding Transcriptions. EHMM basic tool is available with Festvox Recent Version. For running EHMM Labeler under MARY environment you need to compile EHMM tool in your machine. It may take long time depending on the size of the data and system configuration.  
 
 **LabelPauseDeleter**  
