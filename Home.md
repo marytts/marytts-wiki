@@ -1,4 +1,4 @@
-[![Build Status](https://buildhive.cloudbees.com/job/marytts/job/marytts/badge/icon)](https://buildhive.cloudbees.com/job/marytts/job/marytts/)
+[![Build Status](https://travis-ci.org/marytts/marytts.svg?branch=master)](https://travis-ci.org/marytts/marytts)
 
 Welcome to the MARY TTS wiki on github.
 
