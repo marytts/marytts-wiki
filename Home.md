@@ -6,7 +6,7 @@ Transition from [the old TRAC page](http://mary.opendfki.de) to this place is in
 
 ## Release Notes
 
-* [[MARY TTS 5.0]]
+Please refer to the main [MaryTTS Downloads](http://mary.dfki.de/download/) page and the [Releases on GitHub](https://github.com/marytts/marytts/releases)
 
 ## Using MARY TTS from Java source code
 
