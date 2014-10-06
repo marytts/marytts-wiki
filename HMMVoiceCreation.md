@@ -92,7 +92,7 @@ The result of this step is a lab directory.
 
 5- Run the **TranscriptionAligner**, this program will create the allophones directory.
 
-6- Run the **FeatureSelelection**, this program will create a mary/features.txt file, it requires the MARY server running. Select here all the features and save the file.
+6- Run the **FeatureSelection**, this program will create a mary/features.txt file, it requires the MARY server running. Select here all the features and save the file.
 
 7- Run the **PhoneUnitFeatureComputer**, to extract context feature vectors from the text data. This procedure will create a phonefeatures directory. For running this component the MARY server should be running as well.
 
