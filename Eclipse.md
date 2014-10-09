@@ -111,7 +111,7 @@ Navigate to http://localhost:59125/ in your web browser and as you interact with
 
 4. In the **Main** tab, set the **Project** to `marytts-runtime`
 
-5. Set the **Main class** to `marytts.tools.installer.InstallerGUI`
+5. Set the **Main class** to `marytts.tools.install.InstallerGUI`
 
 6. In the **Arguments** tab, enter the following into the **VM arguments** field:
 
