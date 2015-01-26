@@ -71,4 +71,4 @@ We can start the MaryTTS server as an HTTP server.
 ```bash
 $ sudo -u mary /local/mary/marytts/target/marytts-5.1-beta2/bin/marytts-server.sh
 ```
-Of course a proper init script would be nice... [Here's one](https://gist.github.com/psibre/3ccd5356a63cc3a78dc7) that was used on the old, retired demo server.
+Of course a proper init script would be nice... [Here's one](https://github.com/marytts/marytts/blob/e8384220f9308a0b660f72df4c90ab7f88feb06d/marytts-assembly/assembly-runtime/src/runtime/doc/examples/etc_init.d_marytts) that was used on the old, retired demo server.
