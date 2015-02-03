@@ -10,6 +10,12 @@ The same API can be used to interact with a local TTS runtime, in the same JVM, 
 The basic idea is to use reasonable defaults when instantiating a MaryInterface, but to let the user adapt all parts of it.
 
 ## Examples of use
+### Call the service in your web browser
+    http://localhost:59125/process?INPUT_TYPE=TEXT&AUDIO=WAVE_FILE&OUTPUT_TYPE=AUDIO&LOCALE=DE&INPUT_TEXT=%22Hallo%20Josef!%22
+You will get a wave file, which can be downloaded or played in the browser.
+
+### Simple curl call from command line (e.g. bash)
+    curl http://localhost:59125/process?INPUT_TYPE=TEXT&AUDIO=WAVE_FILE&OUTPUT_TYPE=AUDIO&LOCALE=DE&INPUT_TEXT=%22Hallo%20Josef!%22 | aplay
 
 ### Simple text-to-speech with default settings
 
