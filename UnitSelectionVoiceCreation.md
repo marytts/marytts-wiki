@@ -2,7 +2,7 @@
 
 Unit-Selection Voicebuilding has some prerequisites:
 * all speech signals are in .wav format
-* all speech signals have corresponding text of what each speech signal says in .txt format
+* all speech signals have corresponding text of what is spoken in each speech signal (.txt format)
 * maryTTS server must be running on localhost:59125
 
 Steps to create a unit selection voice:  
