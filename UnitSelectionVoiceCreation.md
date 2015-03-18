@@ -3,6 +3,7 @@
 Unit-Selection Voicebuilding has some prerequisites:
 * all speech signals are in .wav format
 * all speech signals have corresponding text of what each speech signal says in .txt format
+* maryTTS server must be running on localhost:59125
 
 Steps to create a unit selection voice:  
 [1. Feature Extraction from Acoustic Data](#step1)    
@@ -50,21 +51,21 @@ The output of this component is a text directory in your voice building director
 ### <a name="step3" /> 3. Automatic Labeling
 
 **AllophonesExtractor**  
-Creates the prompt_allophones directory required in the next step. `Note: This component requires the MARY server`
+Creates the prompt_allophones directory required for both EHMM and HTK Labeling.
 
 **EHMMLabeler**  
 EHMM Labeler is a labeling tool, which generates label files with help of .wav files and corresponding Transcriptions. The EHMM basic tool is available with Festvox Recent Version. In order to run the EHMM Labeler under a MARY environment you need to compile EHMM tool in your machine. Once compiled, the EHMMLabeler.ehmmDir setting needs to point to the directory where the EHMM tool is located: 
 
 ehmmDir : /your/path/to/ehmm/
 
-The EHMMLabeler requires quite some time, depending on the size of the data and system configuration.
+The EHMMLabeler requires quite some time, depending on the size of the data and system configuration. For reference, labeling took ~2.5 hours for ~450 .wav files on a relatively modest home computer.
 
 **HTKLabeler**  
 HTK is another labeling tool, available for free from the University of Cambridge as of this publication, provider that the user registers himself or herself and agrees to the license. Info regarding this process can be found [here.](http://htk.eng.cam.ac.uk/) HTK is distributed in source code available for Linux/Unix and Windows operating systems. Once compiled, the HTKLabeler.htkDir setting needs to point to the directory where the HTK tool is located.
 
 htkDir : /your/path/to/htk/
 
-This labeler is somewhat more time efficient than the EHMM labeler.
+This labeler is much more time efficient than the EHMM labeler.
 
 **LabelPauseDeleter**  
 It may be necessary to run the LabelPauseDeleter after the label files have been created by EHMM, to avoid problems with subsequent voice building components. 
