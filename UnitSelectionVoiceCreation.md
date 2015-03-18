@@ -16,10 +16,10 @@ Steps to create a unit selection voice:
 ### <a name="step1" /> 1. Feature Extraction from Acoustic Data
 
 **PraatPitchmarker**  
-It computes pitch markers with help of Praat. You need to compile or install Praat in your machine.
-Praat is available for all major operating systems at this [link.](http://www.fon.hum.uva.nl/praat/)
-It also do corrections for Pitch Marks to align near by Zero Crossing.  
+It computes pitch markers with the help of Praat. You need to compile or install Praat on your machine and it is available for all major operating systems at this [link.](http://www.fon.hum.uva.nl/praat/)
+It also does corrections for aligning Pitch Marks to the nearest Zero Crossings.  
 Configuration Settings:  
+    wavDir : location of .wav files of utterances
 
     command   : Give absolute path of Praat Executable  
                 (Note for Mac OS users: this should be /Applications/Praat.app/Contents/MacOS/Praat)  
@@ -27,8 +27,8 @@ Configuration Settings:
     maxPitch, minPitch : For choosing Pitch Range (Ex: Male: 50-200 | Female: 150-300)  
 
 **MCEPMaker**  
-It calculate MFCCs from Speech Wave files, using Edinburgh Speech Tools.  
-This component uses the Edinburgh Speech Tools, the path for this tool can be set on the general settings:  
+It calculates MFCCs from Speech Wave files, using Edinburgh Speech Tools.  
+The path for this tool can be set on the general settings:  
 
     estDir       : /your/path/to/Festival/speech_tool 
 
@@ -49,7 +49,12 @@ The output of this component is a text directory in your voice building director
 Creates the prompt_allophones directory required in the next step. `Note: This component requires the MARY server`
 
 **EHMMLabeler**  
-EHMM Labeler is a labeling tool, which generates label files with help of Wave files and corresponding Transcriptions. EHMM basic tool is available with Festvox Recent Version. For running EHMM Labeler under MARY environment you need to compile EHMM tool in your machine. It may take long time depending on the size of the data and system configuration.  
+EHMM Labeler is a labeling tool, which generates label files with help of Wave files and corresponding Transcriptions. EHMM basic tool is available with Festvox Recent Version. For running EHMM Labeler under MARY environment you need to compile EHMM tool in your machine. It may take long time depending on the size of the data and system configuration. Once compiled, the EHMM Labeler.ehmmDir setting needs to point to the directory where the EHMM tool is located: 
+
+ehmmDir : /your/path/to/ehmmTool
+
+**HTKLabeler**
+  
 
 **LabelPauseDeleter**  
 It may be necessary to run the LabelPauseDeleter after the label files have been created by EHMM, to avoid problems with subsequent voice building components. 
