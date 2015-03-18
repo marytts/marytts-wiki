@@ -25,7 +25,7 @@ Configuration Settings:
     pmDir     : Output Dir Path for Praat Pitch marks  
     maxPitch, minPitch : For choosing Pitch Range (Ex: Male: 50-200 | Female: 150-300)  
 
-**2 MCEPMaker**  
+**MCEPMaker**  
 It calculate MFCCs from Speech Wave files, using Edinburgh Speech Tools.  
 This component uses the Edinburgh Speech Tools, the path for this tool can be set on the general settings:  
 
