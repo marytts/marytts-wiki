@@ -21,7 +21,7 @@ Steps to create a unit selection voice:
 ### <a name="step1" /> 1. Feature Extraction from Acoustic Data
 
 **PraatPitchmarker**  
-It computes pitch markers with the help of Praat. You need to compile or install Praat on your machine and it is available for all major operating systems at this [link.](http://www.fon.hum.uva.nl/praat/)
+It computes pitch markers with the help of Praat. You need to compile or install Praat on your machine. It is available for all major operating systems at this [link.](http://www.fon.hum.uva.nl/praat/)
 It also does corrections for aligning Pitch Marks to the nearest Zero Crossings.  
 Configuration Settings:  
     wavDir : location of .wav files of utterances
@@ -33,7 +33,7 @@ Configuration Settings:
 
 **MCEPMaker**  
 It calculates MFCCs from Speech Wave files, using Edinburgh Speech Tools.  
-For Ubuntu users: `sudo apt - get install speech - tools`  
+For Ubuntu users: `sudo apt - get install speech - tools` install directory defaults to /usr/ 
 For Mac OSX users: `brew install speech - tools`    
 The path for this tool can be set on the general settings:  
 
@@ -61,17 +61,17 @@ EHMM Labeler is a labeling tool, which generates label files with help of .wav f
 `ehmmDir : /your/path/to/ehmm`  
 (Note: if this directory does not have a path /bin/ehmm, then ehmm has not been properly compiled.)
 
-The EHMMLabeler requires quite some time, depending on the size of the data and system configuration. For reference: (quote taken from Terminal output during labeling) "It may take more time (may be 1 or 2 days) depending on voice database ...."
+The EHMMLabeler requires quite some time, depending on the size of the data and system configuration. For reference: (quote taken from Terminal output during labeling) "It may take more time (may be 1 or 2 days) depending on voice database ...." This step is optional and the HTKLabeler can be used instead.
 
 **HTKLabeler**  
 HTK is another labeling tool, available for free from the University of Cambridge as of this publication, provider that the user registers himself or herself and agrees to the license. Info regarding this process can be found [here.](http://htk.eng.cam.ac.uk/) HTK is distributed in source code available for Linux/Unix and Windows operating systems. Once compiled, the HTKLabeler.htkDir setting needs to point to the directory where the HTK tool is located.
 
 `htkDir : /your/path/to/htk/`
 
-This labeler is much more time efficient than the EHMM labeler.  The output directory, under settings HTKLabeler.outputLabDir should correspond with db.LabDir under Global Settings.
+This labeler is much more time efficient than the EHMM labeler.  The output directory, under HTKLabeler settings HTKLabeler.outputLabDir should correspond with db.LabDir under Global Settings.
 
 **LabelPauseDeleter**  
-It may be necessary to run the LabelPauseDeleter after the label files have been created by EHMM or HTK, to avoid problems with subsequent voicebuilding components. 
+It is recommended to run the LabelPauseDeleter after the label files have been created by EHMM or HTK, to avoid problems with subsequent voicebuilding components. 
 
 **LabelledFilesInspector**  
 It allows to browse through aligned labels and listen to the corresponding wave file. It is useful for perceptual manual verification on alignment. 
