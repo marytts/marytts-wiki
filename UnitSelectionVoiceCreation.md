@@ -1,5 +1,9 @@
 # Unit selection voice creation and explanation on Individual Voice Import Components
 
+This type of voicebuilding has a few prerequisites:
+* all speech signals are in .wav format
+* all speech signals have corresponding text of what each speech signal says in .txt format
+
 Steps to create a unit selection voice:  
 [1. Feature Extraction from Acoustic Data](#step1)    
 [2. Support for Transcription Conversion](#step2)  
