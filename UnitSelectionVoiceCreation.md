@@ -86,7 +86,9 @@ Converts the label files into the label files used by Mary: phone labels (phonel
 Converts the label files into the label files used by Mary: halfphone labels (halfphonelab directory)
 
 **TranscriptionAligner**  
-This component will create the allophones directory.
+This component will create the allophones directory.  
+
+Note: all of these steps expect a folder /lab/ with all the label files that come from either the EHMM or HTK Labeler. The GUI will show green, as if the steps were completed successfully, even if the .lab files are not found. It is recommended to look in the Terminal for info on what files are being processed.
 
 ### <a name="step5" /> 5. Feature Vector Extraction from Text Data
 **FeatureSelection**  
@@ -114,7 +116,7 @@ It works like the previous component.
 
 ### <a name="step7" /> 7. Basic Data Files  
 **WaveTimelineMaker**  
-The WaveTimelineMaker split the waveforms as datagrams to be stored in a timeline in Mary format. It produces a binary file, which contains all wave files. 
+The WaveTimelineMaker splits the waveforms as datagrams to be stored in a timeline in Mary format. It produces a binary file, which contains all .wav files. 
 
 **BasenameTimelineMaker**  
 The BasenameTimelineMaker takes a database root directory and a list of basenames, and associates the basenames with absolute times in a timeline in Mary format. 
@@ -133,7 +135,7 @@ It produces a file containing all the target cost features for the phone sized u
 It builds an acoustic model of durations in the database using the program "wagon" from the Edinburgh Speech tools.
 
 **F0CARTTrainer**  
-It builds acoustic models of F0 like DurationCARTTrainer. It uses "wagon" and the files produced by PhoneUnitfileWriter and PhoneFeatureFileWriter. 
+It builds acoustic models of F0 values like DurationCARTTrainer. It uses "wagon" and the files produced by PhoneUnitfileWriter and PhoneFeatureFileWriter. 
 
 ### <a name="step9" /> 9. Unit Selection Files  
 
@@ -144,7 +146,7 @@ It produces a file containing all halfphone sized units.
 It produces a file containing all the target cost features for the phone sized units. The module needs a file defining which features are to be used and what weights are given to them. They must be the same features as the ones that the HalfPhoneFeatureComputer used. If you do not have a feature definition, the module tries to create one.  
 
 **F0PolynomialFeatureFileWriter**
-You may need to run this part too.
+Similar to previous module, but for F0 polynomial features.
 
 **AcousticFeatureFileWriter**  
 It produces a file containing all the target cost features plus two acoustic target cost features for the halfphone sized units. Also produces a feature definition containing those features.
