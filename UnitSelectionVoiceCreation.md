@@ -56,16 +56,17 @@ The output of this component is a text directory in your voice building director
 Creates the prompt_allophones directory required for both EHMM and HTK Labeling.
 
 **EHMMLabeler**  
-EHMM Labeler is a labeling tool, which generates label files with help of .wav files and corresponding Transcriptions. The EHMM basic tool is available with Festvox Recent Version. In order to run the EHMM Labeler under a MARY environment you need to compile EHMM tool in your machine under the directory /marytts/lib/external. Once compiled, the EHMMLabeler.ehmmDir setting needs to point to the directory where the EHMM tool is located: 
+EHMM Labeler is a labeling tool, which generates label files with help of .wav files and corresponding Transcriptions. The EHMM basic tool is available with Festvox Recent Version. In order to run the EHMM Labeler under a MARY environment you need to compile EHMM tool. Once compiled, the EHMMLabeler.ehmmDir setting needs to point to the directory where the EHMM executable is located: 
 
-ehmmDir : /marytts/lib/external/ehmm/ (Note: if this directory does not have a path /bin/ehmm, then ehmm has not been properly compiled.)
+`ehmmDir : /your/path/to/ehmm`  
+(Note: if this directory does not have a path /bin/ehmm, then ehmm has not been properly compiled.)
 
 The EHMMLabeler requires quite some time, depending on the size of the data and system configuration. For reference, labeling took ~2.5 hours for ~450 .wav files on a relatively modest home computer.
 
 **HTKLabeler**  
 HTK is another labeling tool, available for free from the University of Cambridge as of this publication, provider that the user registers himself or herself and agrees to the license. Info regarding this process can be found [here.](http://htk.eng.cam.ac.uk/) HTK is distributed in source code available for Linux/Unix and Windows operating systems. Once compiled, the HTKLabeler.htkDir setting needs to point to the directory where the HTK tool is located.
 
-htkDir : /your/path/to/htk/
+`htkDir : /your/path/to/htk/`
 
 This labeler is much more time efficient than the EHMM labeler.
 
