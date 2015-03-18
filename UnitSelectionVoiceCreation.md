@@ -26,9 +26,9 @@ It also does corrections for aligning Pitch Marks to the nearest Zero Crossings.
 Configuration Settings:  
     wavDir : location of .wav files of utterances
 
-    command   : Give absolute path of Praat Executable  
+    command : Give absolute path of Praat Executable  
                 (Note for Mac OS users: this should be /Applications/Praat.app/Contents/MacOS/Praat)  
-    pmDir     : Output Dir Path for Praat Pitch marks  
+    pmDir : Output Dir Path for Praat Pitch marks  
     maxPitch, minPitch : For choosing Pitch Range (Ex: Male: 50-200 | Female: 150-300)  
 
 **MCEPMaker**  
@@ -37,7 +37,7 @@ For Ubuntu users: `sudo apt - get install speech - tools`
 For Mac OSX users: `brew install speech - tools`    
 The path for this tool can be set on the general settings:  
 
-    estDir       : /your/path/to/Festival/speech_tool 
+    estDir : /your/path/to/Festival/speech_tool 
 
 
 ### <a name="step2" /> 2. Support for Transcription Conversion
