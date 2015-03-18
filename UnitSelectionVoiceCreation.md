@@ -61,7 +61,7 @@ EHMM Labeler is a labeling tool, which generates label files with help of .wav f
 `ehmmDir : /your/path/to/ehmm`  
 (Note: if this directory does not have a path /bin/ehmm, then ehmm has not been properly compiled.)
 
-The EHMMLabeler requires quite some time, depending on the size of the data and system configuration. For reference, labeling took ~2.5 hours for ~450 .wav files on a relatively modest home computer.
+The EHMMLabeler requires quite some time, depending on the size of the data and system configuration. For reference: (quote taken from Terminal) "It may take more time (may be 1 or 2 days) depending on voice database ...."
 
 **HTKLabeler**  
 HTK is another labeling tool, available for free from the University of Cambridge as of this publication, provider that the user registers himself or herself and agrees to the license. Info regarding this process can be found [here.](http://htk.eng.cam.ac.uk/) HTK is distributed in source code available for Linux/Unix and Windows operating systems. Once compiled, the HTKLabeler.htkDir setting needs to point to the directory where the HTK tool is located.
