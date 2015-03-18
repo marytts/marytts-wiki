@@ -16,7 +16,8 @@ Steps to create a unit selection voice:
 ### <a name="step1" /> 1. Feature Extraction from Acoustic Data
 
 **PraatPitchmarker**  
-It computes pitch markers with help of Praat. You need to compile or install Praat in your machine.  
+It computes pitch markers with help of Praat. You need to compile or install Praat in your machine.
+Praat is available for all major operating systems at this [link.](http://www.fon.hum.uva.nl/praat/)
 It also do corrections for Pitch Marks to align near by Zero Crossing.  
 Configuration Settings:  
 
