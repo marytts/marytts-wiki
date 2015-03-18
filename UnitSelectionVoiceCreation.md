@@ -1,7 +1,7 @@
 # Unit selection voice creation and explanation on Individual Voice Import Components
 
 Unit-Selection Voicebuilding has some prerequisites:
-* all speech signals are in .wav format
+* all speech signals are in .wav format, 16kHz sampling frequency and 16-bit sample rate.
 * all speech signals have corresponding text of what is spoken in each speech signal (.txt format)
 * maryTTS server must be running on localhost:59125
 
@@ -61,17 +61,17 @@ EHMM Labeler is a labeling tool, which generates label files with help of .wav f
 `ehmmDir : /your/path/to/ehmm`  
 (Note: if this directory does not have a path /bin/ehmm, then ehmm has not been properly compiled.)
 
-The EHMMLabeler requires quite some time, depending on the size of the data and system configuration. For reference: (quote taken from Terminal) "It may take more time (may be 1 or 2 days) depending on voice database ...."
+The EHMMLabeler requires quite some time, depending on the size of the data and system configuration. For reference: (quote taken from Terminal output during labeling) "It may take more time (may be 1 or 2 days) depending on voice database ...."
 
 **HTKLabeler**  
 HTK is another labeling tool, available for free from the University of Cambridge as of this publication, provider that the user registers himself or herself and agrees to the license. Info regarding this process can be found [here.](http://htk.eng.cam.ac.uk/) HTK is distributed in source code available for Linux/Unix and Windows operating systems. Once compiled, the HTKLabeler.htkDir setting needs to point to the directory where the HTK tool is located.
 
 `htkDir : /your/path/to/htk/`
 
-This labeler is much more time efficient than the EHMM labeler.
+This labeler is much more time efficient than the EHMM labeler.  The output directory, under settings HTKLabeler.outputLabDir should correspond with db.LabDir under Global Settings.
 
 **LabelPauseDeleter**  
-It may be necessary to run the LabelPauseDeleter after the label files have been created by EHMM or HTK, to avoid problems with subsequent voice building components. 
+It may be necessary to run the LabelPauseDeleter after the label files have been created by EHMM or HTK, to avoid problems with subsequent voicebuilding components. 
 
 **LabelledFilesInspector**  
 It allows to browse through aligned labels and listen to the corresponding wave file. It is useful for perceptual manual verification on alignment. 
