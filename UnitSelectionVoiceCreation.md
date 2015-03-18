@@ -1,6 +1,6 @@
 # Unit selection voice creation and explanation on Individual Voice Import Components
 
-This type of voicebuilding has a few prerequisites:
+Unit-Selection Voicebuilding has some prerequisites:
 * all speech signals are in .wav format
 * all speech signals have corresponding text of what each speech signal says in .txt format
 
