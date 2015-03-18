@@ -32,7 +32,9 @@ Configuration Settings:
     maxPitch, minPitch : For choosing Pitch Range (Ex: Male: 50-200 | Female: 150-300)  
 
 **MCEPMaker**  
-It calculates MFCCs from Speech Wave files, using Edinburgh Speech Tools.  
+It calculates MFCCs from Speech Wave files, using Edinburgh Speech Tools.
+For Ubuntu users: `sudo apt - get install speech - tools`
+For Mac OSX users: `brew install speech - tools`  
 The path for this tool can be set on the general settings:  
 
     estDir       : /your/path/to/Festival/speech_tool 
@@ -54,9 +56,9 @@ The output of this component is a text directory in your voice building director
 Creates the prompt_allophones directory required for both EHMM and HTK Labeling.
 
 **EHMMLabeler**  
-EHMM Labeler is a labeling tool, which generates label files with help of .wav files and corresponding Transcriptions. The EHMM basic tool is available with Festvox Recent Version. In order to run the EHMM Labeler under a MARY environment you need to compile EHMM tool in your machine. Once compiled, the EHMMLabeler.ehmmDir setting needs to point to the directory where the EHMM tool is located: 
+EHMM Labeler is a labeling tool, which generates label files with help of .wav files and corresponding Transcriptions. The EHMM basic tool is available with Festvox Recent Version. In order to run the EHMM Labeler under a MARY environment you need to compile EHMM tool in your machine under the directory /marytts/lib/external. Once compiled, the EHMMLabeler.ehmmDir setting needs to point to the directory where the EHMM tool is located: 
 
-ehmmDir : /your/path/to/ehmm/
+ehmmDir : /marytts/lib/external/ehmm/ (Note: if this directory does not have a path /bin/ehmm, then ehmm has not been properly compiled.)
 
 The EHMMLabeler requires quite some time, depending on the size of the data and system configuration. For reference, labeling took ~2.5 hours for ~450 .wav files on a relatively modest home computer.
 
@@ -68,7 +70,7 @@ htkDir : /your/path/to/htk/
 This labeler is much more time efficient than the EHMM labeler.
 
 **LabelPauseDeleter**  
-It may be necessary to run the LabelPauseDeleter after the label files have been created by EHMM, to avoid problems with subsequent voice building components. 
+It may be necessary to run the LabelPauseDeleter after the label files have been created by EHMM or HTK, to avoid problems with subsequent voice building components. 
 
 **LabelledFilesInspector**  
 It allows to browse through aligned labels and listen to the corresponding wave file. It is useful for perceptual manual verification on alignment. 
