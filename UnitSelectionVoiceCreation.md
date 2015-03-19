@@ -59,7 +59,7 @@ HTK is another labeling tool, available for free from the University of Cambridg
 
 `htkDir : /your/path/to/htk/`
 
-This labeler is used in lieu of the EHMM Labeler when building a Unit-Selection voice.  The output directory, under HTKLabeler settings HTKLabeler.outputLabDir should correspond with db.LabDir under Global Settings.
+This labeler is used in lieu of the EHMM Labeler when building a Unit-Selection voice, as it is more time-efficient.  The output directory, under HTKLabeler settings HTKLabeler.outputLabDir should correspond with db.LabDir under Global Settings.
 
 **LabelPauseDeleter**  
 It is recommended to run the LabelPauseDeleter after the label files have been created by HTK, to avoid problems with subsequent voicebuilding components. 
