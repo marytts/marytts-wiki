@@ -52,7 +52,7 @@ The output of this component is a text directory in your voice building director
 ### <a name="step3" /> 3. Automatic Labeling
 
 **AllophonesExtractor**  
-Creates the prompt_allophones directory required for both EHMM and HTK Labeling.
+Creates the prompt_allophones directory and files required for both EHMM and HTK Labeling.
 
 **EHMMLabeler**  
 EHMM Labeler is a labeling tool, which generates label files with help of .wav files and corresponding Transcriptions. The EHMM basic tool is available with Festvox Recent Version. In order to run the EHMM Labeler under a MARY environment you need to compile EHMM tool. Once compiled, the EHMMLabeler.ehmmDir setting needs to point to the directory where the EHMM executable is located: 
