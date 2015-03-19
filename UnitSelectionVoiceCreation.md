@@ -55,7 +55,7 @@ The output of this component is a text directory in your voice building director
 Creates the prompt_allophones directory and files required for HTK Labeling.
 
 **HTKLabeler**  
-HTK is another labeling tool, available for free from the University of Cambridge as of this publication, provider that the user registers himself or herself and agrees to the license. Info regarding this process can be found [here.](http://htk.eng.cam.ac.uk/) HTK is distributed in source code available for Linux/Unix and Windows operating systems. Once compiled, the HTKLabeler.htkDir setting needs to point to the directory where the HTK tool is located.
+HTK is a labeling tool, available for free from the University of Cambridge as of this publication, provider that the user registers himself or herself and agrees to the license. Info regarding this process can be found [here.](http://htk.eng.cam.ac.uk/) HTK is distributed in source code available for Linux/Unix and Windows operating systems. Once compiled, the HTKLabeler.htkDir setting needs to point to the directory where the HTK tool is located.
 
 `htkDir : /your/path/to/htk/`
 
