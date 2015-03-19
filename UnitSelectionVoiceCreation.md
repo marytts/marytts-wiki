@@ -24,11 +24,11 @@ Steps to create a unit selection voice:
 It computes pitch markers with the help of Praat. You need to compile or install Praat on your machine. It is available for all major operating systems at this [link.](http://www.fon.hum.uva.nl/praat/)
 It also does corrections for aligning Pitch Marks to the nearest Zero Crossings.  
 Configuration Settings:  
-    `wavDir : location of .wav files of utterances`
-    `command : Give absolute path of Praat Executable  `
-                `(Note for Mac OS users: this should be /Applications/Praat.app/Contents/MacOS/Praat)  `
-    `pmDir : Output Dir Path for Praat Pitch marks  `
-    `maxPitch, minPitch : For choosing Pitch Range (Ex: Male: 50-200 | Female: 150-300)`  
+    `wavDir : location of .wav files of utterances`  
+    `command : Give absolute path of Praat Executable`  
+        `(Note for Mac OS users: this should be /Applications/Praat.app/Contents/MacOS/Praat)  `
+    `pmDir : Output Dir Path for Praat Pitch marks`  
+    `maxPitch, minPitch : For choosing Pitch Range (Ex: Male: 50-200 | Female: 150-300)`    
 
 **MCEPMaker**  
 It calculates MFCCs from Speech Wave files, using Edinburgh Speech Tools.  
