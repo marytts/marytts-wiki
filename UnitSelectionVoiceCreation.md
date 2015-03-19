@@ -32,8 +32,8 @@ Configuration Settings:
 
 **MCEPMaker**  
 It calculates MFCCs from Speech Wave files, using Edinburgh Speech Tools.  
-For Ubuntu users: `sudo apt - get install speech - tools` install directory defaults to /usr/   
-For Mac OSX users: `brew install speech - tools`    
+For Ubuntu users: `sudo apt-get install speech-tools` install directory defaults to /usr/   
+For Mac OSX users: `brew install speech-tools`    
 The path for this tool can be set on the general settings:  
 
     estDir : /your/path/to/Festival/speech_tool 
