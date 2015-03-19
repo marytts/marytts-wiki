@@ -12,14 +12,15 @@ In a nutshell, the Voice Import Tools cover the following steps in voice buildin
 6. [Publishing-a-MARY-TTS-Voice](https://github.com/marytts/marytts/wiki/Publishing-a-MARY-TTS-Voice)  
 
 **Requirements:**  
-- Operating System - Linux (Recommended)  
-- MARY TTS Recent Version - [Download MARY TTS including Voice import tools](https://github.com/marc1s/marytts#readme)  
+- Operating System - Linux (Strongly recommended)  
+- MARY TTS Recent Version - [Download MARY TTS including Voice import tools](https://github.com/marytts/marytts/releases)  
+- (be sure Java 7 or higher is already installed – else type “sudo apt-get install openjdk-7-jdk” or visit https://www.java.com/en/download/)
 
 (You may be able to use other operating systems such as Mac OS X or Windows if you can get the dependencies to work, which are described below) 
 
 **Dependent Tools:**  
-- Praat - For pitch marks. On Ubuntu-like systems, install the praat package. Otherwise, download [Praat](http://www.fon.hum.uva.nl/praat)  
-- Edinburgh Speech Tools – For MFCCs and Wagon (CART). On Ubuntu-like systems, install the speech-tools package. Otherwise, download and install manually [Speech Tools](http://www.cstr.ed.ac.uk/projects/speech_tools/). The path for this tool can be provided with the general settings:  
+- Praat - For pitch marks. On Ubuntu-like systems, install the praat package by typing “sudo apt-get install praat” into the command line. Otherwise, download [Praat](http://www.fon.hum.uva.nl/praat).
+- Edinburgh Speech Tools – For MFCCs and Wagon (CART). On Ubuntu-like systems, install the speech-tools package (“sudo apt-get install speech-tools”). Otherwise, download and install manually [Speech Tools](http://www.cstr.ed.ac.uk/projects/speech_tools/). The path for this tool can be provided with the general settings:  
 
     db.estDir  : /path/to/Festival/speech_tools/
 
@@ -50,7 +51,7 @@ The components in the GUI are organised according to:
 The two basic requirements for building a voice are:  
 a. Wave files  
 b. Corresponding Transcription (in MARY or Festvox Format):  
-- MARY Format : Each transcription represented by a single file. All these files placed in a single directory. By default, all these files placed in 'text' directory of voice-building directory.  
+- MARY Format: Each transcription represented by a single file. All these files are placed in a single directory (by default, 'text' directory of voice-building directory).  
 - Festvox (Festival) Format : A single file contains all transcriptions, example:  
 
         ( arctic_a0001 "AUTHOR OF THE DANGER TRAIL, PHILIP STEELS, ETC" )
@@ -65,20 +66,20 @@ Create a voice building directory somewhere on your file system, say /path/myvoi
 - Put all Wave files into the wav sub-directory of the voice building directory, i.e. /path/myvoice/wav. You may want to use the Audio converter GUI to make sure that this data is mono, at the right sampling rate, doesn't include overly long initial and final pauses, etc.  
 - Either put the individual text files into /path/myvoice/text subdirectory (if using text files in MARY format), or the single text file in Festvox format into /path/myvoice/txt.done.data.  
 
-If you want to test this but haven't recorded your own voice files yet, one way of getting data to test this is to use the ARCTIC data from CMU. Download and upack http://www.speech.cs.cmu.edu/cmu_arctic/packed/cmu_us_slt_arctic-0.95-release.tar.bz2, and then:  
+If you want to test this but haven't recorded your own voice files yet, one way of getting data to test this is to use the ARCTIC data from CMU. Download and unpack http://www.speech.cs.cmu.edu/cmu_arctic/packed/cmu_us_slt_arctic-0.95-release.tar.bz2, and then:  
 
     copy or move cmu_us_slt_arctic/wav to myvoice/wav, including all wav files;
     copy or move cmu_us_slt_arctic/etc/txt.done.data to myvoice/txt.done.data. 
 
 ### 2. Run the voice building tools  
-After downloading MARY TTS (and run mvn install), run the voice import tools in your voice building directory with:  
+After downloading MARY TTS (and running "mvn install"), run the voice import tools in your voice building directory with:  
 
     $MARY_BASE/target/marytts-builder-<VERSION>/bin/voiceimport.sh  
 
 **Global Configuration Settings**  
 When you are running the voice building tools for the first time, it asks you general configuration settings like:  
 
-    estDir       : /your/path/to/Festival/speech_tools (important when creating unit selection voices)
+    estDir       : /your/path/to/Festival/speech_tools (which is /usr by default; important when creating unit selection voices)
     gender       : male or female 
     locale       : depends on your voice language, it can be: en_US, de, etc. 
     marybase     : /your/path/to/marytts/
@@ -87,7 +88,7 @@ When you are running the voice building tools for the first time, it asks you ge
   
 All other settings depend on your voice building path or are default values that are filled automatically.  
 
-After filling in general settings  and clicking the **Save** button, you will get to the main window of the Voice Import Tools. There you can see a list of components. A component is executed by ticking the associated checkbox and clicking on **Run**. 
+After filling in general settings  and clicking the **Save** button, you will get to the main window of the Voice Import Tools. There you can see a list of components which in general are supposed to be run sequentially. A component is executed by ticking the associated checkbox and clicking on **Run**. 
 
 **Component Configuration Settings**  
 
@@ -100,13 +101,16 @@ The voice import tool creates two files in the directory where you started it:
  
 **How to run the Voice Import Components**
 
-There is a sequence of steps for creating a unit selection or a hmm-based voice, ideally one would need just to select the necessary steps and click **run**, but normally the user needs to take a few decisions here and there, so the real-world process is usually a bit more complex than that.   
+There is a sequence of steps for creating a unit selection or a hmm-based voice. Ideally one would need to simply run each step after the other. However, the user is often required to make a few decisions here and there. So the real-world process is usually a bit more complex than that.  
 For example:  
 - when using a pitch marker, you may want to verify that the frequency range is appropriate for your recordings, and adapt the component's config settings before running it again.  
-- if your transcriptions are in Festvox format, it is necessary to choose "Festvox2MaryTranscripts" Component. This will convert the transcriptions in Festvox format (txt.done.data) to MARY format (text/*.txt). Voice Import Tools uses MARY format transcription for building a voice.  
+- if your transcriptions are in Festvox format, it is necessary to choose "Festvox2MaryTranscripts" Component. This will convert the transcriptions from Festvox format (txt.done.data) into MARY format (text/*.txt). Voice Import Tools uses MARY format transcription for building a voice.  
 - if you have recorded your voice using Redstart, there is no need to run the "Mary2FestvoxTranscripts" component. 
+- when using the labeler (under “Automatic Labeling” in the GUI) make sure to use either EHMMLabeler or HTKLabeler, not both.
 
-While executing each component, a Progress bar shows the percentage of work completed for that component. A Component is converted to GREEN if that component is executed successfully. It turns RED, and it throws an exception, if that component encounters an error. If you get there, you will need to understand what went wrong, and how it must be fixed. There is no simple recipe for that case. 
+(For more details, see the respective sections on voice creation with UnitSelection and HMM.)
+
+While executing each component, a progress bar shows the percentage of work completed for that component. A component is converted to GREEN if that component is executed successfully. It turns RED, and it throws an exception, if that component encounters an error. If you get there, you will need to understand what went wrong, and how it must be fixed. There is no simple recipe for that case. 
 
 
 An explanation about Individual Voice Import Components and how to create a new **Unit selection voice** can be found here:  
