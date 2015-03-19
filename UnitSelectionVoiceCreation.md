@@ -52,25 +52,17 @@ The output of this component is a text directory in your voice building director
 ### <a name="step3" /> 3. Automatic Labeling
 
 **AllophonesExtractor**  
-Creates the prompt_allophones directory and files required for both EHMM and HTK Labeling.
-
-**EHMMLabeler**  
-EHMM Labeler is a labeling tool, which generates label files with help of .wav files and corresponding Transcriptions. The EHMM basic tool is available with Festvox Recent Version. In order to run the EHMM Labeler under a MARY environment you need to compile EHMM tool. Once compiled, the EHMMLabeler.ehmmDir setting needs to point to the directory where the EHMM executable is located: 
-
-`ehmmDir : /your/path/to/ehmm`  
-(Note: if this directory does not have a path /bin/ehmm, then ehmm has not been properly compiled.)
-
-The EHMMLabeler requires quite some time, depending on the size of the data and system configuration. For reference: (quote taken from Terminal output during labeling) "It may take more time (may be 1 or 2 days) depending on voice database ...." This step is optional and the HTKLabeler can be used instead.
+Creates the prompt_allophones directory and files required for HTK Labeling.
 
 **HTKLabeler**  
 HTK is another labeling tool, available for free from the University of Cambridge as of this publication, provider that the user registers himself or herself and agrees to the license. Info regarding this process can be found [here.](http://htk.eng.cam.ac.uk/) HTK is distributed in source code available for Linux/Unix and Windows operating systems. Once compiled, the HTKLabeler.htkDir setting needs to point to the directory where the HTK tool is located.
 
 `htkDir : /your/path/to/htk/`
 
-This labeler is much more time efficient than the EHMM labeler.  The output directory, under HTKLabeler settings HTKLabeler.outputLabDir should correspond with db.LabDir under Global Settings.
+This labeler is used in lieu of the EHMM Labeler when building a Unit-Selection voice.  The output directory, under HTKLabeler settings HTKLabeler.outputLabDir should correspond with db.LabDir under Global Settings.
 
 **LabelPauseDeleter**  
-It is recommended to run the LabelPauseDeleter after the label files have been created by EHMM or HTK, to avoid problems with subsequent voicebuilding components. 
+It is recommended to run the LabelPauseDeleter after the label files have been created by HTK, to avoid problems with subsequent voicebuilding components. 
 
 **LabelledFilesInspector**  
 It allows to browse through aligned labels and listen to the corresponding wave file. It is useful for perceptual manual verification on alignment. 
@@ -87,7 +79,7 @@ Converts the label files into the label files used by Mary: halfphone labels (ha
 **TranscriptionAligner**  
 This component will create the allophones directory.  
 
-Note: all of these steps expect a folder /lab/ with all the label files that come from either the EHMM or HTK Labeler. The GUI will show green, as if the steps were completed successfully, even if the .lab files are not found. It is recommended to look in the Terminal for info on what files are being processed.
+Note: all of these steps expect a folder /lab/ with all the label files that come from the HTK Labeler. The GUI will show green, as if the steps were completed successfully, even if the .lab files are not found. It is recommended to look in the Terminal for info on what files are being processed.
 
 ### <a name="step5" /> 5. Feature Vector Extraction from Text Data
 **FeatureSelection**  
