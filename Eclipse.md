@@ -95,7 +95,10 @@ You now have the MaryTTS Runtime and Builder (for new voices and languages) asse
 	This may very well be something suffixed with `-SNAPSHOT`.
 
 7. In the **Classpath** tab, select **User Entries**, then click **Add Projects...** and
-   select `marytts-lang-en` and `voice-cmu-slt-hsmm`, then click **OK**
+   select `marytts-lang-en` and `voice-cmu-slt-hsmm`, then click **OK**.
+
+   If you would like to add some other *installed* voice (see [below](#running-or-debugging-the-voice-installer)), click **Add JARs...** and select the corresponding voice jar file. If that voice has another locale than English, be sure to also click **Add Projects...** and select the corresponding language component.
+   E.g., to debug MaryTTS with the German `bits1` HSMM voice (version 5.1.2) *installed*, add the `voice-bits1-hsmm-5.1.2.jar` JAR file and the `marytts-lang-de` project.
 
 8. Click **Apply**, then click **Run** (or **Debug**)
 
