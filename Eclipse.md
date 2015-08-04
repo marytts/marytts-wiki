@@ -3,14 +3,14 @@
 ## Preliminaries ##
 
 The easiest and therefore recommended way to debug or develop MaryTTS is using [Eclipse IDE for Java developers](http://eclipse.org).
-We have tested with Eclipse Juno, Kepler, and Luna.
+We have tested with Eclipse Juno, Kepler, Luna, and Mars.
 Older versions will probably *not* work as advertised.
 
-Two relevant Eclipse plugins are [m2e](http://eclipse.org/m2e/) (Maven Integration)
-and [EGit](http://eclipse.org/egit/) (Team provider for Git).
-Depending on you Eclipse installation, you may need to install one or both of these manually.
+Two required Eclipse plugins are [m2e](https://marketplace.eclipse.org/content/maven-integration-eclipse-luna-and-newer) (Maven Integration) and [Groovy-Eclipse](https://github.com/groovy/groovy-eclipse/wiki) (Groovy Integration) (which is also available as part of [GGTS](https://marketplace.eclipse.org/content/groovygrails-tool-suite-ggts-eclipse));
+depending on which variant of Eclipse you are using, they are either already installed or available for installation in the Eclipse Marketplace (**Help** > **Eclipse Marketplace...**).
 
-Optionally, you may also find the **m2e-egit** Team provider useful, which connects m2e and EGit and is available from the Eclipse Marketplace.
+For direct integration with Git, you'll also need [EGit](https://marketplace.eclipse.org/content/egit-git-team-provider) (Team provider for Git), and to clone and import in one step (see below), you will also need the **Maven SCM Handler for EGit**.
+Again, depending on you Eclipse installation, you may need to install one or both of these manually.
 
 ## Importing MaryTTS ##
 
@@ -18,7 +18,7 @@ You can *either* import MaryTTS directly in one step *or* clone the Git reposito
 
 ### One-step import ###
 
-The easiest way to import MaryTTS into your Eclipse workspace is by using the m2e-egit connector.
+The easiest way to import MaryTTS into your Eclipse workspace is to clone and import in one step (using the plugins detailed above).
 
 1. Choose **File** > **Import...**
 
@@ -30,7 +30,8 @@ The easiest way to import MaryTTS into your Eclipse workspace is by using the m2
 
 Sometimes it just works better to have independent control over the cloning process.
 You could use any tool you want to clone the MaryTTS source code repository from GitHub.
-If you would like to do it in Eclipse, here's how:
+
+If you prefer to do it in Eclipse, here's how:
 
 #### Clone with EGit ####
 
@@ -50,6 +51,8 @@ If you would like to do it in Eclipse, here's how:
 
 8. Cancel the following dialog
 
+After the git repository has been cloned, 
+
 #### Import with m2e ####
 
 1. Choose **File** > **Import...**
@@ -61,17 +64,8 @@ If you would like to do it in Eclipse, here's how:
 ## Assemble and install MaryTTS ##
 
 Make the MaryTTS assemblies and install the Maven artifacts, which are required to install or build new voices.
-On the command line, you could simply run `mvn install`, but in Eclipse, follow these steps:
-
-1. Choose **Run** > **Run Configurations...** (or **Run** > **Debug Configurations**)
-
-2. Select **Maven Build** and click the little **New** button
-
-3. Set the **Name** to "install"
-
-4. In the **Main** tab, set the **Base directory** to `${workspace_loc:marytts}`
-
-5. In the **Goals** field, enter `install`, then click **Run** (or **Debug**)
+On the command line, you could simply run `mvn install`.
+Alternatively, using Eclipse, in the Package Explorer, right-click on the `marytts` project (at the top), then select **Run As** > **Maven install**
 
 You now have the MaryTTS Runtime and Builder (for new voices and languages) assemblies under the `target` directory of your Git repository, and the MaryTTS Maven artifacts installed in your local Maven repository.
 
