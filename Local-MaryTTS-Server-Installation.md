@@ -103,7 +103,7 @@ The idea of this part is to monitor any crash of the marytts server (memory leak
 4. Open a terminal and setup a cron job with the command `crontab -e` (for user specific job) or `sudo crontab -e` (for system wide job)
 5. Go to the end of the file and add the following line
     ```
-    */30 * * * * ~/PATH/TO/mary.sh
+    */30 * * * * /PATH/TO/mary.sh
     ```
     (This is set to 30 minutes interval).
     For other time intervals
