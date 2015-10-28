@@ -75,51 +75,48 @@ Of course a proper init script would be nice... [Here's one](https://github.com/
 
 ## Setting up the cron job
 
-The idea of this part is to monitor any crash of the marytts server (memory leak, ...) and restart it in case of necessary
+The idea of this part is to monitor any crash of the marytts server (memory leak, ...) and restart it when necessary.
 
-1. Move the mary.sh to a directory and mark the path.
-
-```sh
-#!/bin/bash
-
-# Version to adapt to your system
-VERSION=5.2-SNAPSHOT
-
-#Check if our service is currently running
-ps auxw | grep marytts-server | grep -v grep
-
-#if the service is not running it returns a non zero to the environment viriable,
-#in that case we start the service, else we ignore.
-if [ $? != 0 ]
-then
-	bash /local/mary/marytts/target/marytts-$VERSION/bin/marytts-server.sh -Xmx2g
-fi
-```
-
-2. Open mary.sh and edit path to marytts-server if different from the default.
-3. Give mary.sh execute permission with the command
-
-		chmod +x mary.sh (One might be asked for super user)
-
-4. Open a terminal and set the crontab with the command
-
-		crontab -e (for user specific job)
-		or
-		sudo crontab -e (for system wide job)
-
+1. Move the `mary.sh` to a directory and remember the path.
+    ```bash
+    #!/bin/bash
+    
+    # Version to adapt to your system
+    VERSION=5.2-SNAPSHOT
+    
+    #Check if our service is currently running
+    ps auxw | grep marytts-server | grep -v grep
+    
+    # if the service is not running it returns a non zero to the environment viriable,
+    # in that case we start the service, else we ignore.
+    if [ $? != 0 ]
+    then
+        bash /local/mary/marytts/target/marytts-$VERSION/bin/marytts-server.sh -Xmx2g
+    fi
+    ```
+2. Open `mary.sh` and edit path to `marytts-server` if different from the default.
+3. Give `mary.sh` execute permission with the command
+    ````
+    chmod +x mary.sh
+    ````
+    (One might be asked for super user)
+4. Open a terminal and setup a cron job with the command `crontab -e` (for user specific job) or `sudo crontab -e` (for system wide job)
 5. Go to the end of the file and add the following line
-
-		*/30 * * * * ~/PATH/TO/mary.sh (This is set to 30 minutes interval)
-
-for other time intervals
-		* * * * *  command to execute (like above)
-		 ┬ ┬ ┬ ┬ ┬
-		 │ │ │ │ │
-		 │ │ │ │ │
-		 │ │ │ │ └───── day of week (0 - 7) (0 to 6 are Sunday to Saturday,
-				or use names; 7 is Sunday, the same as 0)
-		 │ │ │ └────────── month (1 - 12)
-		 │ │ └─────────────── day of month (1 - 31)
-		 │ └──────────────────── hour (0 - 23)
-		 └───────────────────────── min (0 - 59)
-Save the crontab and exit.
+    ```
+    */30 * * * * ~/PATH/TO/mary.sh
+    ```
+    (This is set to 30 minutes interval).
+    For other time intervals
+    ```
+    * * * * *  command to execute (like above)
+    ┬ ┬ ┬ ┬ ┬
+    │ │ │ │ │
+    │ │ │ │ │
+    │ │ │ │ └───── day of week (0 - 7) (0 to 6 are Sunday to Saturday, or use names; 7 is Sunday, the same as 0)
+    │ │ │ └────────── month (1 - 12)
+    │ │ └─────────────── day of month (1 - 31)
+    │ └──────────────────── hour (0 - 23)
+    └───────────────────────── min (0 - 59)
+    ```
+    
+    Save the crontab and exit.
