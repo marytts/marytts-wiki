@@ -1,7 +1,7 @@
 # Unit selection voice creation and explanation on Individual Voice Import Components
 
 Unit-Selection Voicebuilding has some prerequisites:
-* all speech signals are in .wav format, 16kHz sampling frequency and 16-bit sample rate.
+* all speech signals are in .wav format, 16kHz sampling frequency and 16-bit sample format.
 * all speech signals have corresponding text of what is spoken in each speech signal (.txt format)
 * maryTTS server must be running on localhost:59125(default)
 
