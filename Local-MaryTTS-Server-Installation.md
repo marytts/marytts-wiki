@@ -4,7 +4,7 @@ This recipe documents how to install MaryTTS to a local server, e.g., for projec
 
 ## Preliminaries
 
-In this recipe, we will use MaryTTS v5.1-beta2 on a vanilla Ubuntu 12.4.4 LTS server.
+In this recipe, we will use MaryTTS v5.2 on a vanilla Ubuntu 12.4.4 LTS server.
 We will create a dedicated service account named `mary` to manage the installation files and run the service.
 Moreover, we will place the MaryTTS installation in `/local/mary/marytts` and serve the documentation from `/local/mary/www`.
 The MaryTTS server itself will run on the default port 59125.
@@ -24,7 +24,7 @@ $ sudo apt-get install -y git
 $ sudo -u mary git clone https://github.com/marytts/marytts.git /local/mary/marytts
 $ cd /local/mary/marytts
 $ sudo -u mary git fetch --tags
-$ sudo -u mary git checkout v5.1beta2
+$ sudo -u mary git checkout v5.2
 ```
 
 ## Build MaryTTS
@@ -69,7 +69,7 @@ $ sudo service nginx start
 
 We can start the MaryTTS server as an HTTP server.
 ```bash
-$ sudo -u mary /local/mary/marytts/target/marytts-5.1-beta2/bin/marytts-server.sh
+$ sudo -u mary /local/mary/marytts/target/marytts-5.2/bin/marytts-server.sh
 ```
 Of course a proper init script would be nice... [Here's one](https://github.com/marytts/marytts/blob/e8384220f9308a0b660f72df4c90ab7f88feb06d/marytts-assembly/assembly-runtime/src/runtime/doc/examples/etc_init.d_marytts) that was used on the old, retired demo server.
 
@@ -82,7 +82,7 @@ The idea of this part is to monitor any crash of the marytts server (memory leak
     #!/bin/bash
     
     # Version to adapt to your system
-    VERSION=5.2-SNAPSHOT
+    VERSION=5.2
     
     #Check if our service is currently running
     ps auxw | grep marytts-server | grep -v grep
