@@ -64,7 +64,7 @@ In addition to the above comments, the following notes may be helpful to get the
 ***
 
 ##<a name="stepIII" /> III. Preparing data for training a HMM-voice
-In your voice building directory execute the step-by-step procedure in [VoiceImportToolsTutorial](http://mary.opendfki.de/wiki/VoiceImportToolsTutorial) to make sure that the data, sound (wav) and text files are in the correct place and format. As a result of this step your voice building directory should contain a wav and text directories. 
+In your voice building directory execute the step-by-step procedure in [[VoiceImportToolsTutorial]] to make sure that the data, sound (wav) and text files are in the correct place and format. As a result of this step your voice building directory should contain a wav and text directories. 
 
 In your voice building directory run the voice import tools:
 
