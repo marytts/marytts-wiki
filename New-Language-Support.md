@@ -132,7 +132,7 @@ Once you have a mysql database, you can start to extract clean text and words fr
 
     $ transcription.sh 
 
-  More details available at  http://mary.opendfki.de/wiki/TranscriptionTool
+  More details available at  https://mary.opendfki.de/wiki/TranscriptionTool
 
 ## 4. Minimal NLP components for the new language
 
