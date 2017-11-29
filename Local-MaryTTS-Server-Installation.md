@@ -69,7 +69,7 @@ $ sudo service nginx start
 
 We can start the MaryTTS server as an HTTP server.
 ```bash
-$ sudo -u mary /local/mary/marytts/target/marytts-5.2/bin/marytts-server.sh
+$ sudo -u mary /local/mary/marytts/target/marytts-5.2/bin/marytts-server
 ```
 Of course a proper init script would be nice... [Here's one](https://github.com/marytts/marytts/blob/e8384220f9308a0b660f72df4c90ab7f88feb06d/marytts-assembly/assembly-runtime/src/runtime/doc/examples/etc_init.d_marytts) that was used on the old, retired demo server.
 
@@ -91,7 +91,7 @@ The idea of this part is to monitor any crash of the marytts server (memory leak
     # in that case we start the service, else we ignore.
     if [ $? != 0 ]
     then
-        bash /local/mary/marytts/target/marytts-$VERSION/bin/marytts-server.sh -Xmx2g
+        bash /local/mary/marytts/target/marytts-$VERSION/bin/marytts-server -Xmx2g
     fi
     ```
 2. Open `mary.sh` and edit path to `marytts-server` if different from the default.
