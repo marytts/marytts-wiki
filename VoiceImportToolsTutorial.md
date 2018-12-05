@@ -30,7 +30,7 @@ In a nutshell, the Voice Import Tools cover the following steps in voice buildin
  
 ## Voice Import Components: 
 
-<center>![VoiceImport Tools GUI](http://mary.opendfki.de/raw-attachment/wiki/VoiceImportToolsTutorial/VIC1.jpg)</center>
+<center>![VoiceImport Tools GUI](https://mary.opendfki.de/trac/raw-attachment/wiki/VoiceImportToolsTutorial/VIC1.jpg)</center>
                          
 The components in the GUI are organised according to:  
 **Raw Acoustics:**`PraatPitchmarker` `MCEPMaker`  

@@ -132,7 +132,7 @@ Once you have a mysql database, you can start to extract clean text and words fr
 
     $ transcription.sh 
 
-  More details available at  https://mary.opendfki.de/wiki/TranscriptionTool
+  More details available at https://mary.opendfki.de/trac/wiki/TranscriptionTool
 
 ## 4. Minimal NLP components for the new language
 
@@ -329,7 +329,7 @@ Synthesis script menu options:
 
 In the recording tool Redstart, there is an import functionality for the text files generated from the synthesis script selection GUI. From the Redstart menu, select "File"->"Import text file..." and follow the on-screen instructions.
 
-More information: [RedStart: Voice recording tool for TTS](http://mary.opendfki.de/wiki/RedStart)
+More information: [RedStart: Voice recording tool for TTS](https://mary.opendfki.de/trac/wiki/RedStart)
 
 ## 9. Convert recorded audio
 Usually it makes sense to convert the audio recorded from the speaker before building a synthetic voice from it. MARY TTS provides a GUI that provides a range or processing options. It can be started as follows:

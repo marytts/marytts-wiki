@@ -2,7 +2,7 @@
 
 Welcome to the MARY TTS wiki on github.
 
-Transition from [the old TRAC page](http://mary.opendfki.de) to this place is in progress; for the moment, you may want to look in both places for the information you care about.
+Transition from [the old TRAC page](https://mary.opendfki.de/trac/) to this place is in progress; for the moment, you may want to look in both places for the information you care about.
 
 ## Release Notes
 
@@ -23,7 +23,7 @@ Please refer to the main [MaryTTS Downloads](http://mary.dfki.de/download/) page
 
 
 ## User documentation
-* [Support for explicit prosody specifications](http://mary.opendfki.de/wiki/ProsodySpecificationSupport)
+* [Support for explicit prosody specifications](https://mary.opendfki.de/trac/wiki/ProsodySpecificationSupport)
 
 ## Bug reports
 
@@ -38,4 +38,4 @@ If you think you have identified a bug, we would like to hear about it. For a me
   * detailed log files, i.e. an excerpt of MARY TTS/log/server.log containing the error episode. 
 
 3. Discuss the problem on the [MARY user mailing list](http://www.dfki.de/mailman/listinfo/mary-users).
-You can search past messages on the Mary-users or the Mary-developers lists, please have a look to the Mailing List section in [the old TRAC page](http://mary.opendfki.de)
+You can search past messages on the Mary-users or the Mary-developers lists, please have a look to the Mailing List section in [the old TRAC page](https://mary.opendfki.de/trac/)
