@@ -12,7 +12,7 @@ VI. [Training a HMM-voice in other language](#stepVI)
 ***
 
 ## <a name="stepII" /> II. Required programs and files
-We provide an script to facilitate the checking and installation of the necessary external programs, once MARY TTS has been installed, open a command line shell run the commands:  
+We provide a script to facilitate the checking and installation of the necessary external programs, once MARY TTS has been installed, open a command line shell run the commands:  
 
     cd $MARY_BASE/lib/external/
     ./check_install_external_programs.sh
